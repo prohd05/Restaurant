@@ -1,0 +1,14 @@
+/* Mobile Media Query*/
+@media screen and (max-width:799px) {
+
+}
+
+/* Tablet Media Query*/
+@media screen and (min-width:800px) and (max-width: 1199px){
+
+}
+
+/* PC Media Query*/
+@media screen and (min-width: 1200px){
+
+}
