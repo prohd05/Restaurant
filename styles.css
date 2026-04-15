@@ -1,14 +1,31 @@
+#SIbackground{
+    background-image:url("assets/SIbackground.png");
+}
+
 /* Mobile Media Query*/
 @media screen and (max-width:799px) {
+    /* Sign In*/
 
+    #SIlogo{
+        width:378px;
+    }
 }
 
 /* Tablet Media Query*/
 @media screen and (min-width:800px) and (max-width: 1199px){
+    /* Sign In*/
 
+    #SIlogo{
+        width:410px;
+    }
 }
 
 /* PC Media Query*/
 @media screen and (min-width: 1200px){
 
+    /* Sign In*/
+
+    #SIlogo{
+        width:499px;
+    }
 }

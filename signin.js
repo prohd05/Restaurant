@@ -1,6 +1,6 @@
 import { auth, db } from "./firebase-config.js";
 import { getAuth, signInWithPopup, signInWithRedirect, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { doc, setDoc, getDocs, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 const googleBttn = document.getElementById("google");
 
@@ -21,20 +21,26 @@ googleBttn.addEventListener("click", () => {
 
       // Add user data to Firestore
       try {
-        const ref=doc(db, "users", user.uid);
-        await setDoc(ref, {
-          name: user.displayName,
-          email: user.email,
-          createdAt: serverTimestamp(),
-          pfp: user.photoURL,
-          staffroles: {
+
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if(!docSnap.exists()){
+          await setDoc(doc(db, "roles", user.uid), {
+            userID: user.uid,
             waiter:false,
             chef: false,
             management: false,
             owner: false,
-          }
-        });
+          });
+        }
 
+          await setDoc(doc(db, "users", user.uid), {
+          name: user.displayName,
+          email: user.email,
+          createdAt: serverTimestamp(),
+          pfp: user.photoURL,
+        });
         
         //alert("Sign in successful! Welcome " + user.displayName);
         window.location.href = "home.html";
@@ -54,4 +60,3 @@ googleBttn.addEventListener("click", () => {
       alert("Error signing in: " + errorMessage);
     });
 });
-  

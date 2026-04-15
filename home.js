@@ -13,17 +13,18 @@ import { updateDoc, collection, doc, addDoc, getDoc ,getDocs, serverTimestamp} f
       pfp.src = user.photoURL; // Set the profile picture in the navbar
       
       const userRef = await getDoc(doc(db, "users", user.uid));
+      const roleRef = await getDoc(doc(db, "roles", user.uid));
 
-      if(userRef.data().staffroles.owner){
+      if(roleRef.data().owner){
         role.textContent ="Role: Owner";
       }
-      else if(userRef.data().staffroles.management){
+      else if(roleRef.data().management){
         role.textContent ="Role: Management";
       }
-      else if(userRef.data().staffroles.chef){
+      else if(roleRef.data().chef){
         role.textContent ="Role: Chef";
       }
-      else if(userRef.data().staffroles.waiter){
+      else if(roleRef.data().waiter){
         role.textContent ="Role: Waiter";
       }
       else{
