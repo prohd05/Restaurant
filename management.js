@@ -45,7 +45,7 @@ async function displayStaff(user, src){
     const roleRef = user ? await getDoc(doc(db, "roles", user.uid)) : null;
     const currentUserRole = roleRef?.data();
     for (const staff of orderStaff) {
-        if(staff.name.includes(src) && document.getElementById("stfOp").value == "Username" || staff.id.includes(src) && document.getElementById("stfOp").value == "ID Number" ){
+        if(staff.name.toLowerCase().startsWith(src.toLowerCase()) && document.getElementById("stfOp").value == "Username" || staff.id?.toLowerCase().startsWith(src.toLowerCase()) && document.getElementById("stfOp").value == "ID Number" ){
         const staffRef = await getDoc(doc(db, "roles", staff.id));
 
         const mainDiv = document.createElement("div");
@@ -55,35 +55,32 @@ async function displayStaff(user, src){
         const staffrole = document.createElement("span");
 
         if (staffRef.data().owner) {
-            staffrole.textContent = "Owner";
+            staffrole.textContent = "Owner,";
         } else if (staffRef.data().management) {
-            staffrole.textContent = "Management";
+            staffrole.textContent = "Management,";
         } else if (staffRef.data().chef) {
-            staffrole.textContent = "Chef";
+            staffrole.textContent = "Chef,";
         } else if (staffRef.data().waiter) {
-            staffrole.textContent = "Waiter";
+            staffrole.textContent = "Waiter,";
         } else {
-            staffrole.textContent = "Customer";
+            staffrole.textContent = "Customer,";
         }
 
         const staffinfo = document.createElement("p");
-        staffinfo.textContent = `${staff.name} | ${staff.id} | `;
-        mainDiv.appendChild(staffinfo);
         staffinfo.appendChild(staffrole);
+        staffinfo.textContent += ` ${staff.name} | ${staff.id} `;
+        mainDiv.appendChild(staffinfo);
+        
 
         const staffdd = document.createElement("select");
         staffinfo.appendChild(staffdd);
 
-        const cusSelect = document.createElement("Option");
-        cusSelect.value="p"; cusSelect.textContent = "Customer";
-        const waitSelect = document.createElement("Option");
-        waitSelect.value="w"; waitSelect.textContent = "Waiter";
-        const chefSelect = document.createElement("Option");
-        chefSelect.value="c"; chefSelect.textContent = "Chef";
-        const manSelect = document.createElement("Option");
-        manSelect.value="m"; manSelect.textContent = "Manager";
-        const ownSelect =  document.createElement("Option");
-        ownSelect.value="o"; ownSelect.textContent = "Owner";
+        const cusSelect = new Option("Customer", "p");
+        const waitSelect = new Option("Waiter", "w");
+        const chefSelect = new Option("Chef", "c");
+        const manSelect = new Option("Management", "m");
+        const ownSelect = new Option("Owner", "o");
+
 
         staffdd.append(cusSelect, waitSelect, chefSelect, manSelect, ownSelect);
 
@@ -91,10 +88,14 @@ async function displayStaff(user, src){
             manSelect.disabled = true;
             ownSelect.disabled = true;
 
-            if (staffRef.data().owner || staffRef.data().management || staff.id === user.id) {
+            if (staffRef.data().owner || staffRef.data().management) {
                 staffdd.disabled = true;
             }
         }
+        
+        if (staff.id === user.uid) {
+                staffdd.disabled = true;
+            }
 
         if (staffRef.data().owner){
             ownSelect.selected = true;
@@ -112,28 +113,25 @@ async function displayStaff(user, src){
             cusSelect.selected = true;
         }
 
-        staffdd.addEventListener("change", async (event) =>{
-            if(event.target.textContent="p"){
-                console.log("p");
-                cusSelect.selected = true;
-            }
-            if(event.target.textContent="waiter"){
-                console.log("w");
-                //waitSelect.selected = true;
-            }
-            if(event.target.textContent="c"){
-                console.log("c");
-                chefSelect.selected = true;
-            }
-            if(event.target.textContent="m"){
-                console.log("m");
-                manSelect.selected = true;
-            }
-            if(event.target.textContent="o"){
-                console.log("o");
-                ownSelect.selected = true;
-            }
-        });
+        staffdd.addEventListener("change", async (event) => {
+        const value = event.target.value;
+
+        if (value === "p") {
+            console.log("Customer");
+        } 
+        else if (value === "w") {
+            console.log("Waiter");
+        } 
+        else if (value === "c") {
+            console.log("Chef");
+        } 
+        else if (value === "m") {
+            console.log("Management");
+        } 
+        else if (value === "o") {
+            console.log("Owner");
+        }
+    });
     }
     }
 }
