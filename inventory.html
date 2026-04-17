@@ -8,6 +8,32 @@
         <title> Inventory </title>
     </head>
     <body>
+        <form id="addMeal">
+            <p> Add Meal </p>
+            <input id="mealTitle" placeholder="Title" required> <br>
+            <select id="mealType">
+                <option> Main </option>
+                <option> Side </option> <option> Drink </option>
+            </select><br>
+            <input id="mealImg" placeholder="Image Link"> <br>
+            <input id="mealPrice" type="number" placeholder="Price" required> <br>
+            
+            <div id="addIng">
+                <p> Ingredients </p>
+                <input placeholder="Title" required> <br>
+                <input type="number" placeholder="Amount" required> 
+                <select>
+                    <option> Cups </option>
+                    <option> Pounds</option>
+                </select>
+                <button id="ingAdd"> + </button>
+            </div>
+
+            <button id="mealSub" type="submit"> Add Meal </button>
+        </form>
+        <div id="viewInventory">
+
+        </div>
         <script type="module" src="inventory.js" defer></script>
     </body>
 </html>

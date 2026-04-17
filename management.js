@@ -81,20 +81,28 @@ async function displayStaff(user, src){
         const manSelect = new Option("Management", "m");
         const ownSelect = new Option("Owner", "o");
 
+        const setBtn = document.createElement("button");
+        setBtn.textContent = "Set";
+        setBtn.type = "submit";
+        staffinfo.appendChild(setBtn);
+
 
         staffdd.append(cusSelect, waitSelect, chefSelect, manSelect, ownSelect);
 
         if (currentUserRole?.management) {
             manSelect.disabled = true;
             ownSelect.disabled = true;
+            setBtn.disabled = true;
 
             if (staffRef.data().owner || staffRef.data().management) {
                 staffdd.disabled = true;
+                setBtn.disabled = true;
             }
         }
         
         if (staff.id === user.uid) {
                 staffdd.disabled = true;
+                setBtn.disabled = true;
             }
 
         if (staffRef.data().owner){
@@ -113,23 +121,78 @@ async function displayStaff(user, src){
             cusSelect.selected = true;
         }
 
-        staffdd.addEventListener("change", async (event) => {
-        const value = event.target.value;
+        setBtn.addEventListener("click", async (event) => {
+        const value = staffdd.value;
 
         if (value === "p") {
             console.log("Customer");
+            try{
+                await updateDoc(collection(db, "roles", staff.id), {
+                    owner: false,
+                    management: false,
+                    chef: false,
+                    waiter: false,
+                })
+            }
+            catch(error){
+                console.log("Error" + error.message)
+            }
         } 
         else if (value === "w") {
             console.log("Waiter");
+            try{
+                await updateDoc(collection(db, "roles", staff.id), {
+                    owner: false,
+                    management: false,
+                    chef: false,
+                    waiter: true,
+                })
+            }
+            catch(error){
+                console.log("Error" + error.message)
+            }
         } 
         else if (value === "c") {
             console.log("Chef");
+            try{
+                await updateDoc(collection(db, "roles", staff.id), {
+                    owner: false,
+                    management: false,
+                    chef: true,
+                    waiter: false,
+                })
+            }
+            catch(error){
+                console.log("Error" + error.message)
+            }
         } 
         else if (value === "m") {
             console.log("Management");
+            try{
+                await updateDoc(collection(db, "roles", staff.id), {
+                    owner: false,
+                    management: true,
+                    chef: false,
+                    waiter: false,
+                })
+            }
+            catch(error){
+                console.log("Error" + error.message)
+            }
         } 
         else if (value === "o") {
             console.log("Owner");
+            try{
+                await updateDoc(collection(db, "roles", staff.id), {
+                    owner: true,
+                    management: false,
+                    chef: false,
+                    waiter: false,
+                })
+            }
+            catch(error){
+                console.log("Error" + error.message)
+            }
         }
     });
     }

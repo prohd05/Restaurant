@@ -12,18 +12,18 @@ onAuthStateChanged(auth, async (user) => {
         //name.textContent = user.displayName; // Set the username in the navbar
         //pfp.src = user.photoURL; // Set the profile picture in the navbar
         
-        const userRef = await getDoc(doc(db, "users", user.uid));
+        const userRef = await getDoc(doc(db, "roles", user.uid));
   
-        if(userRef.data().staffroles.owner){
+        if(userRef.data().owner){
           //role.textContent ="Role: Owner";
         }
-        else if(userRef.data().staffroles.management){
+        else if(userRef.data().management){
           //role.textContent ="Role: Management";
         }
-        else if(userRef.data().staffroles.chef){
+        else if(userRef.data().chef){
           //role.textContent ="Role: Chef";
         }
-        else if(userRef.data().staffroles.waiter){
+        else if(userRef.data().waiter){
           //role.textContent ="Role: Waiter";
           window.location.href = "home.html";
         }
@@ -40,4 +40,39 @@ onAuthStateChanged(auth, async (user) => {
         window.location.href = "signin.html";
       }, 1000);
     }
+
+    
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const mealForm = document.getElementById("addMeal");
+    const IngForm = document.getElementById("addIng");
+    const user = auth.currentUser;
+
+    mealForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+    try{
+
+      const newDoc = await addDoc(collection(db, "meals"), {
+        title: document.getElementById("mealTitle").value,
+        type: document.getElementById("mealType").value,
+        price: document.getElementById("mealPrice").value,
+        picture: document.getElementById("mealImg").value,
+        createdAt: serverTimestamp()
+      });
+
+      alert(newDoc.id);
+       await setDoc(doc(db, "ingredients", newDoc.id), {
+        
+      }); 
+
+      document.getElementById("mealTitle").value = "";
+      document.getElementById("mealType").value = "";
+      document.getElementById("mealPrice").value = "";
+    }
+    catch(error){
+      alert("Error placing order: " + error.message);
+      console.error("Order error:", error); 
+    };
+    });
   });
