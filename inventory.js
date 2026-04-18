@@ -1,6 +1,6 @@
 import { auth, db } from "./firebase-config.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { updateDoc, collection, doc, addDoc, getDoc ,getDocs, serverTimestamp} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { updateDoc, collection, doc, addDoc, setDoc, getDoc ,getDocs, serverTimestamp} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // Listen for auth state changes
 onAuthStateChanged(auth, async (user) => {
@@ -53,17 +53,15 @@ onAuthStateChanged(auth, async (user) => {
       event.preventDefault();
     try{
 
-      const newDoc = await addDoc(collection(db, "meals"), {
+      const newDoc = await addDoc(collection(db, "menu"), {
         title: document.getElementById("mealTitle").value,
         type: document.getElementById("mealType").value,
         price: document.getElementById("mealPrice").value,
         picture: document.getElementById("mealImg").value,
         createdAt: serverTimestamp()
       });
-
-      alert(newDoc.id);
-       await setDoc(doc(db, "ingredients", newDoc.id), {
-        
+       await setDoc(doc(db, "items", newDoc.id), {
+        title: "a"
       }); 
 
       document.getElementById("mealTitle").value = "";

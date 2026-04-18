@@ -27,7 +27,6 @@ googleBttn.addEventListener("click", () => {
 
         if(!docSnap.exists()){
           await setDoc(doc(db, "roles", user.uid), {
-            userID: user.uid,
             waiter:false,
             chef: false,
             management: false,
@@ -40,6 +39,7 @@ googleBttn.addEventListener("click", () => {
           email: user.email,
           createdAt: serverTimestamp(),
           pfp: user.photoURL,
+          viewType: false
         });
         
         //alert("Sign in successful! Welcome " + user.displayName);

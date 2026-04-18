@@ -1,6 +1,6 @@
 import { auth, db } from "./firebase-config.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { updateDoc, collection, doc, addDoc, getDoc ,getDocs, serverTimestamp} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { updateDoc, collection, doc, addDoc, setDoc, getDoc ,getDocs, serverTimestamp} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 onAuthStateChanged(auth, async (user) => {
     if (user) {
@@ -17,9 +17,7 @@ onAuthStateChanged(auth, async (user) => {
         }
     }
     else{
-        setTimeout(() => {
             window.location.href = "signin.html";
-            }, 1000);
     }
     displayStaff(user, document.getElementById("stfSrc").value);
 
@@ -125,9 +123,9 @@ async function displayStaff(user, src){
         const value = staffdd.value;
 
         if (value === "p") {
-            console.log("Customer");
+            //console.log("Customer");
             try{
-                await updateDoc(collection(db, "roles", staff.id), {
+                await updateDoc(doc(db, "roles", staff.id), {
                     owner: false,
                     management: false,
                     chef: false,
@@ -139,9 +137,9 @@ async function displayStaff(user, src){
             }
         } 
         else if (value === "w") {
-            console.log("Waiter");
+            //console.log("Waiter");
             try{
-                await updateDoc(collection(db, "roles", staff.id), {
+                await updateDoc(doc(db, "roles", staff.id), {
                     owner: false,
                     management: false,
                     chef: false,
@@ -153,9 +151,9 @@ async function displayStaff(user, src){
             }
         } 
         else if (value === "c") {
-            console.log("Chef");
+            //console.log("Chef");
             try{
-                await updateDoc(collection(db, "roles", staff.id), {
+                await updateDoc(doc(db, "roles", staff.id), {
                     owner: false,
                     management: false,
                     chef: true,
@@ -167,9 +165,9 @@ async function displayStaff(user, src){
             }
         } 
         else if (value === "m") {
-            console.log("Management");
+            //console.log("Management");
             try{
-                await updateDoc(collection(db, "roles", staff.id), {
+                await updateDoc(doc(db, "roles", staff.id), {
                     owner: false,
                     management: true,
                     chef: false,
@@ -181,9 +179,9 @@ async function displayStaff(user, src){
             }
         } 
         else if (value === "o") {
-            console.log("Owner");
+            //console.log("Owner");
             try{
-                await updateDoc(collection(db, "roles", staff.id), {
+                await updateDoc(doc(db, "roles", staff.id), {
                     owner: true,
                     management: false,
                     chef: false,
@@ -194,6 +192,7 @@ async function displayStaff(user, src){
                 console.log("Error" + error.message)
             }
         }
+        displayStaff(user, document.getElementById("stfSrc").value);
     });
     }
     }
