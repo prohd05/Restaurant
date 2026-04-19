@@ -36,7 +36,7 @@ onAuthStateChanged(auth, async (user) => {
     const aSelect = document.querySelectorAll(".sideAccounting");
     const roleRef = await getDoc(doc(db, "roles", user.uid));
     if(!roleRef.data().waiter && !roleRef.data().chef && !roleRef.data().management && !roleRef.data().owner){
-        navPublic.remove();
+        //navPublic.remove();
         hSelect.forEach(el => {
             el.remove();
         });
