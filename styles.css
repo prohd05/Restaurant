@@ -40,7 +40,7 @@ body{
         font-weight: 100;
     }
 
-    h5, .heading5, .sideHome, .sideOrders, .sideInventory, .sideManagement, .sideAccounting{
+    h5, .heading5, .sideHome, .sideOrders, .sideInventory, .sideManagement, .sideAccounting, .publicLinks{
         font-family: "Notable";
         font-size: 24px;
         font-weight: 100;
@@ -57,6 +57,10 @@ body{
         position: absolute;
         right: 5%;
         bottom: 1%;
+    }
+
+    .mainPages{
+        padding-top: 220px;
     }
 
     /* Sign In */
@@ -99,7 +103,11 @@ body{
         justify-content: space-between;
         align-items: center;
         height: 220px;
+        width: 100%;
         border-bottom: 2px solid #FFD16D;
+        position: fixed;
+        top: 0%;
+        background-color: #6EADFF;
     }
 
     .navSidebar, .navSignout, .navlogoClick{
@@ -138,10 +146,13 @@ body{
     .sidebar{
         background-color: #FFD16D;
         width: 474px;
-        height: 100%;
-        position: absolute;
+        position: fixed;
+        top: 220px;
+        left: 0;
+        height: calc(100vh - 220px);
         display: flex;
         flex-direction: column;
+        overflow-y: auto;
     }
 
     .sidebar a{
@@ -166,6 +177,13 @@ body{
     .sidebar a:active{
         color: white;
     }
+
+    /* Menu */
+    #menuTop{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 /* Tablet Media Query */
@@ -189,7 +207,7 @@ body{
         font-weight: 100;
     }
 
-    h5, .heading5, .sideHome, .sideOrders, .sideInventory, .sideManagement, .sideAccounting{
+        h5, .heading5, .sideHome, .sideOrders, .sideInventory, .sideManagement, .sideAccounting, .publicLinks{
         font-family: "Notable";
         font-size: 18px;
         font-weight: 100;
@@ -206,6 +224,10 @@ body{
         position: absolute;
         right: 5%;
         bottom: 1%;
+    }
+
+    .mainPages{
+        padding-top: 147px;
     }
     
     /* Sign In */
@@ -248,7 +270,11 @@ body{
         justify-content: space-between;
         align-items: center;
         height: 147px;
+        width: 100%;
         border-bottom: 2px solid #FFD16D;
+        position: fixed;
+        top: 0%;
+        background-color: #6EADFF;
     }
     .navSidebar, .navSignout, .navlogoClick{
         background-color: transparent;
@@ -281,6 +307,49 @@ body{
     .navSideArea, .signoutArea{
         width: 20%;
     }
+
+    /* Sidebar */
+    .sidebar{
+        background-color: #FFD16D;
+        width: 382px;
+        position: fixed;
+        top: 147px;
+        left: 0;
+        height: calc(100vh - 147px);
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .sidebar a{
+        text-decoration: none;
+        margin-left: 5%;
+        margin-bottom: 5%;
+        margin-top: 5%;
+    }
+
+    .sidebar a:link{
+        color:#6EADFF;
+    }
+
+    .sidebar a:visited {
+        color:#6EADFF;
+    }
+
+    .sidebar a:hover{
+        color: white;
+    }
+
+    .sidebar a:active{
+        color: white;
+    }
+
+    /* Menu */
+    #menuTop{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 /* Mobile Media Query */
@@ -304,7 +373,7 @@ body{
         font-weight: 100;
     }
 
-    h5, .heading5, .sideHome, .sideOrders, .sideInventory, .sideManagement, .sideAccounting{
+    h5, .heading5, .sideHome, .sideOrders, .sideInventory, .sideManagement, .sideAccounting, .publicLinks{
         font-family: "Notable";
         font-size: 14px;
         font-weight: 100;
@@ -321,6 +390,10 @@ body{
         position: absolute;
         right: 5%;
         bottom: 1%;
+    }
+
+    .mainPages{
+        padding-top: 103px;
     }
 
     /* Sign In */
@@ -364,7 +437,11 @@ body{
         justify-content: space-between;
         align-items: center;
         height: 103px;
+        width: 100%;
         border-bottom: 2px solid #FFD16D;
+        position: fixed;
+        top: 0%;
+        background-color: #6EADFF;
     }
 
     .navSidebar, .navSignout, .navlogoClick{
@@ -397,5 +474,48 @@ body{
 
     .navSideArea, .signoutArea{
         width: 20%;
+    }
+
+    /* Sidebar */
+    .sidebar{
+        background-color: #FFD16D;
+        width: 100%;
+        position: fixed;
+        top: 103px;
+        left: 0;
+        height: calc(100vh - 103px);
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .sidebar a{
+        text-decoration: none;
+        margin-left: 5%;
+        margin-bottom: 5%;
+        margin-top: 5%;
+    }
+
+    .sidebar a:link{
+        color:#6EADFF;
+    }
+
+    .sidebar a:visited {
+        color:#6EADFF;
+    }
+
+    .sidebar a:hover{
+        color: white;
+    }
+
+    .sidebar a:active{
+        color: white;
+    }
+
+    /* Menu */
+    #menuTop{
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

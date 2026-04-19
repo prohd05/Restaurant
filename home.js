@@ -141,12 +141,12 @@ async function getCart(user) {
     async function load(user, type){
       const list = document.getElementById("MenuListed");
       if (type == false){
-        document.getElementById("areaSelect").style.visibility = "visible";
+        //document.getElementById("areaSelect").style.visibility = "visible";
         list.innerHTML = "";
 
         const startT = document.createElement("h2");
         startT.textContent = "Appetizers";
-        startT.id = "appetizers";
+        startT.id = "sa";
         list.appendChild(startT);
         const stDiv = document.createElement("div");
         stDiv.class = "menuRow";
@@ -156,7 +156,7 @@ async function getCart(user) {
 
         const mainT = document.createElement("h2");
         mainT.textContent = "Mains";
-        mainT.id = "mains";
+        mainT.id = "sm";
         list.appendChild(mainT); 
         const mDiv = document.createElement("div");
         mDiv.class = "menuRow";
@@ -166,7 +166,7 @@ async function getCart(user) {
 
         const sideT = document.createElement("h2");
         sideT.textContent = "Sides";
-        sideT.id = "sides";
+        sideT.id = "ss";
         list.appendChild(sideT);
         const sDiv = document.createElement("div");
         sDiv.class = "menuRow";
@@ -176,7 +176,7 @@ async function getCart(user) {
 
         const bevT = document.createElement("h2");
         bevT.textContent = "Beverages";
-        bevT.id = "drinks";
+        bevT.id = "sb";
         list.appendChild(bevT);
         const bDiv = document.createElement("div");
         bDiv.class = "menuRow";
@@ -186,7 +186,7 @@ async function getCart(user) {
 
         const dessT = document.createElement("h2");
         dessT.textContent = "Dessert";
-        dessT.id = "desserts";
+        dessT.id = "sd";
         list.appendChild(dessT);
         const dDiv = document.createElement("div");
         dDiv.class = "menuRow";
@@ -197,7 +197,7 @@ async function getCart(user) {
       else{
         list.innerHTML = "";
         await displayFood("Cart", user);
-        document.getElementById("areaSelect").style.visibility = "hidden";
+        //document.getElementById("areaSelect").style.visibility = "hidden";
       }
     }
 

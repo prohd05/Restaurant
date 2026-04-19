@@ -13,6 +13,17 @@ document.addEventListener("DOMContentLoaded", () => {
         visible = !visible;
         sidebar.style.visibility = visible ? "visible" : "hidden";
     });
+
+    const publicSelect = document.querySelectorAll(".publicLinks");
+
+    function closeSidebar() {
+        visible = false;
+        sidebar.style.visibility = "hidden";
+    }
+
+    publicSelect.forEach(el => {
+        el.addEventListener("click", closeSidebar);
+    });
 });
 
 onAuthStateChanged(auth, async (user) => {
@@ -25,13 +36,24 @@ onAuthStateChanged(auth, async (user) => {
     const aSelect = document.querySelectorAll(".sideAccounting");
     const roleRef = await getDoc(doc(db, "roles", user.uid));
     if(!roleRef.data().waiter && !roleRef.data().chef && !roleRef.data().management && !roleRef.data().owner){
-        buttonArea.forEach(el => {
+        navPublic.remove();
+        hSelect.forEach(el => {
+            el.remove();
+        });
+        oSelect.forEach(el => {
+            el.remove();
+        });
+        mSelect.forEach(el => {
+            el.remove();
+        });
+        iSelect.forEach(el => {
+            el.remove();
+        });
+        aSelect.forEach(el => {
             el.remove();
         });
     }
-    else{
-        navPublic.remove();
-    }
+    
     if(roleRef.data().waiter){
         iSelect.forEach(el => {
             el.style.visibility = "hidden";

@@ -25,38 +25,40 @@
             <a href="management.html" class="sideManagement"> Management </a>
             <a href="accounting.html" class="sideAccounting"> Accounting </a>
         </div>
-        <form id="addMeal">
-            <p>Add Meal</p>
-            <input id="mealTitle" placeholder="Title" required><br>
+        <div class="mainPages">
+            <form id="addMeal">
+                <p>Add Meal</p>
+                <input id="mealTitle" placeholder="Title" required><br>
 
-            <select id="mealType">
-                <option>Main</option>
-                <option>Side</option>
-                <option>Drink</option>
-                <option>Dessert</option>
-            </select><br>
+                <select id="mealType">
+                    <option>Main</option>
+                    <option>Side</option>
+                    <option>Drink</option>
+                    <option>Dessert</option>
+                </select><br>
 
-            <input id="mealImg" placeholder="Image Link"><br>
-            <input id="mealPrice" type="number" placeholder="Price" required><br>
+                <input id="mealImg" placeholder="Image Link"><br>
+                <input id="mealPrice" type="number" placeholder="Price" required><br>
 
-            <div id="addIng">
-                <p>Ingredients</p> <button id="ingAdd" type="button">+</button>
+                <div id="addIng">
+                    <p>Ingredients</p> <button id="ingAdd" type="button">+</button>
 
-                <div class="ingRow">
-                    <input class="ingName" placeholder="Item" required>
-                    <input class="ingAmount" type="number" placeholder="Amount" required>
-                    <select class="ingUnit">
-                        <option>Tablespoons</option>
-                        <option>Ounces</option>
-                        <option>Grams</option>
-                        <option>Pounds</option>
-                    </select>
+                    <div class="ingRow">
+                        <input class="ingName" placeholder="Item" required>
+                        <input class="ingAmount" type="number" placeholder="Amount" required>
+                        <select class="ingUnit">
+                            <option>Tablespoons</option>
+                            <option>Ounces</option>
+                            <option>Grams</option>
+                            <option>Pounds</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <button id="mealSub" type="submit">Add Meal</button>
-        </form> 
-        <div id="viewInventory">
+                <button id="mealSub" type="submit">Add Meal</button>
+            </form> 
+            <div id="viewInventory">
 
+            </div>
         </div>
         <script type="module" src="scriptcomp/navbar.js" defer></script>
         <script type="module" src="scriptcomp/sidebar.js" defer></script>
