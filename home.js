@@ -5,50 +5,13 @@ import { updateDoc, deleteDoc, setDoc, collection, doc, addDoc, getDoc ,getDocs,
 // Listen for auth state changes
   onAuthStateChanged(auth, async (user) => {
   if (user) {
-    try {
-      const pfp = document.getElementById("hPFP"); // Get the element to display the profile picture
-      const name = document.getElementById("hName"); // Get the element to display the username
-      const role = document.getElementById("hRole"); // Get the element to display the username
-      name.textContent = user.displayName; // Set the username in the navbar
-      pfp.src = user.photoURL; // Set the profile picture in the navbar
-      
-      const userRef = await getDoc(doc(db, "users", user.uid));
-      const roleRef = await getDoc(doc(db, "roles", user.uid));
-
-      if(roleRef.data().owner){
-        role.textContent ="Role: Owner";
-      }
-      else if(roleRef.data().management){
-        role.textContent ="Role: Management";
-      }
-      else if(roleRef.data().chef){
-        role.textContent ="Role: Chef";
-      }
-      else if(roleRef.data().waiter){
-        role.textContent ="Role: Waiter";
-      }
-      else{
-        role.textContent ="Role: Customer";
-      }
-
-    } catch (error) {
-      console.error("Error fetching user:", error); 
-    }
-  } else {
-    setTimeout(() => {
-      window.location.href = "signin.html";
-    }, 1000);
-  }
-
   const typeBut = document.getElementById("typeBtt");
   let type = false;
   listenToCart(user);
   load(user, type);
   typeBut.addEventListener("click", () => {
       typeBut.disabled = true;   
-      
       //console.log(type);
-      setTimeout(() => {
           type = !type;
           if(type){
             document.getElementById("typeBtt").textContent = "View Menu";
@@ -56,26 +19,15 @@ import { updateDoc, deleteDoc, setDoc, collection, doc, addDoc, getDoc ,getDocs,
           else{
             document.getElementById("typeBtt").textContent = "View Order";
           }
+          document.getElementById("MenuListed").innerHTML = "";
           load(user, type);
+      setTimeout(() => {
           typeBut.disabled = false;
-          
-      }, 500);
+      }, 600);
   });
+  }
 });
 
-/// Sign Out Button
-    const logoutButton = document.getElementById("hSignout"); // Select the logout button using its ID
-    logoutButton.addEventListener("click", async () => {
-    try {
-    await signOut(auth);
-    //alert("Logged out successfully!");
-    window.location.href = "signin.html";
-    } catch (error) {
-    console.log("Error logging out: " + error.message);
-    }
-    });
-
-    
 // Place Order to Cart
     async function addToCart(user, item) {
     const ref = doc(db, "carts", user.uid);
@@ -125,12 +77,12 @@ async function getCart(user) {
           const menuTop = document.getElementById("menuTop");
 
           if (!snap.exists()) {
-              menuTop.style.display = "none";
+              menuTop.style.visibility = "hidden";
               totalText.textContent = "Total: $0";
               return;
           }
           else{
-            menuTop.style.display = "block";
+            menuTop.style.visibility = "visible";
           }
 
           const items = snap.data().items || [];
@@ -139,7 +91,7 @@ async function getCart(user) {
               const itemTotal = item.price * item.qty;
               total += itemTotal;
           });
-
+          total = total.toFixed(2);
           totalText.textContent = "Total: $" + total;
       });
   }
@@ -160,17 +112,20 @@ async function getCart(user) {
         return;
     }
 
-    let total = 0;
+    let subtotal = 0;
     items.forEach(item => {
-        total += item.price * item.qty;
+        subtotal += item.price * item.qty;
     });
+
+    const tax = subtotal * 0.06625;
+    const total = subtotal + tax;
 
     try {
         await addDoc(collection(db, "orders"), {
             userId: user.uid,
             user: user.displayName,
             items: items,
-            total: total,
+            total: total.toFixed(2),
             status: "pending",
             createdAt: serverTimestamp()
         });
@@ -182,43 +137,79 @@ async function getCart(user) {
     }
 }
 
-// Load Main Area
+// Return Main Area
     async function load(user, type){
       const list = document.getElementById("MenuListed");
       if (type == false){
+        document.getElementById("areaSelect").style.visibility = "visible";
         list.innerHTML = "";
 
-        const mainT = document.createElement("h1");
+        const startT = document.createElement("h2");
+        startT.textContent = "Appetizers";
+        startT.id = "appetizers";
+        list.appendChild(startT);
+        const stDiv = document.createElement("div");
+        stDiv.class = "menuRow";
+        stDiv.id = "Appetizers"
+        list.append(stDiv);
+        await displayFood("starter", user, stDiv);
+
+        const mainT = document.createElement("h2");
         mainT.textContent = "Mains";
-        const mart = document.createElement("hr");
+        mainT.id = "mains";
         list.appendChild(mainT); 
-        await displayFood("Main", user);
-        list.appendChild(mart);
+        const mDiv = document.createElement("div");
+        mDiv.class = "menuRow";
+        mDiv.id = "Mains"
+        list.append(mDiv);
+        await displayFood("Main", user, mDiv);
 
-        const sideT = document.createElement("h1");
+        const sideT = document.createElement("h2");
         sideT.textContent = "Sides";
-        const sart = document.createElement("hr");
+        sideT.id = "sides";
         list.appendChild(sideT);
-        await displayFood("Side", user);
-        list.appendChild(sart);
+        const sDiv = document.createElement("div");
+        sDiv.class = "menuRow";
+        sDiv.id = "Sides"
+        list.append(sDiv);
+        await displayFood("Side", user, sDiv);
 
-        const drinkT = document.createElement("h1");
-        drinkT.textContent = "Drinks";
-        list.appendChild(drinkT);
-        await displayFood("Drink", user);
+        const bevT = document.createElement("h2");
+        bevT.textContent = "Beverages";
+        bevT.id = "drinks";
+        list.appendChild(bevT);
+        const bDiv = document.createElement("div");
+        bDiv.class = "menuRow";
+        bDiv.id = "Beverages"
+        list.append(bDiv);
+        await displayFood("Drink", user, bDiv);
+
+        const dessT = document.createElement("h2");
+        dessT.textContent = "Dessert";
+        dessT.id = "desserts";
+        list.appendChild(dessT);
+        const dDiv = document.createElement("div");
+        dDiv.class = "menuRow";
+        dDiv.id = "Dessert"
+        list.append(dDiv);
+        await displayFood("Dessert", user, dDiv);
       }
       else{
         list.innerHTML = "";
         await displayFood("Cart", user);
+        document.getElementById("areaSelect").style.visibility = "hidden";
       }
     }
 
-    async function displayFood(type, user){
+  // Load Main Page
+    async function displayFood(type, user, div){
       const list = document.getElementById("MenuListed");
       
       // View Pending Order
       if (type == "Cart"){
         const items = await getCart(user);
+        const TAX_RATE = 0.06625;
+        let subtotal = 0;
         items.forEach(item => {
             const mainDiv = document.createElement("div");
 
@@ -228,22 +219,38 @@ async function getCart(user) {
             const price = document.createElement("p");
             const itemTotal = item.price * item.qty;
             price.textContent = "$" + itemTotal;
+            subtotal += itemTotal;
 
             const removeBtn = document.createElement("button");
             removeBtn.textContent = "-";
-
             removeBtn.addEventListener("click", async () => {
                 await removeFromCart(user, item.itemID);
             });
 
-            
-            
-            list.appendChild(mainDiv);
             mainDiv.appendChild(name);
             mainDiv.appendChild(price);
             mainDiv.appendChild(removeBtn);
-            
+            list.appendChild(mainDiv);
         });
+        const tax = subtotal * TAX_RATE;
+        const total = subtotal + tax;
+        const summary = document.createElement("div");
+        summary.id = "cartSummary";
+
+        const subText = document.createElement("p");
+        subText.textContent = `Subtotal: $${subtotal.toFixed(2)}`;
+
+        const taxText = document.createElement("p");
+        taxText.textContent = `Tax: $${tax.toFixed(2)}`;
+
+        const totalText = document.createElement("p");
+        totalText.textContent = `Total: $${total.toFixed(2)}`;
+
+        summary.appendChild(subText);
+        summary.appendChild(taxText);
+        summary.appendChild(totalText);
+
+        list.appendChild(summary);
         
         const checkoutBtn = document.createElement("button");
         checkoutBtn.textContent = "Place Order";
@@ -272,9 +279,9 @@ async function getCart(user) {
         if (item.type === type) {
           const mainDiv = document.createElement("div");
           mainDiv.className = "menuDiv";
-          list.appendChild(mainDiv);
+          div.appendChild(mainDiv);
 
-          const title = document.createElement("p");
+          const title = document.createElement("h4");
           title.textContent = item.title;
           mainDiv.appendChild(title);
 

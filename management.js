@@ -40,8 +40,7 @@ async function displayStaff(user, src){
         orderStaff.push({ id: staffdoc.id, ...staffdoc.data() });
     });
     orderStaff.sort((a, b) => b.createdAt - a.createdAt);
-    const roleRef = user ? await getDoc(doc(db, "roles", user.uid)) : null;
-    const currentUserRole = roleRef?.data();
+    const roleRef = await getDoc(doc(db, "roles", user.uid));
     for (const staff of orderStaff) {
         if(staff.name.toLowerCase().startsWith(src.toLowerCase()) && document.getElementById("stfOp").value == "Username" || staff.id?.toLowerCase().startsWith(src.toLowerCase()) && document.getElementById("stfOp").value == "ID Number" ){
         const staffRef = await getDoc(doc(db, "roles", staff.id));
@@ -87,10 +86,9 @@ async function displayStaff(user, src){
 
         staffdd.append(cusSelect, waitSelect, chefSelect, manSelect, ownSelect);
 
-        if (currentUserRole?.management) {
+        if (roleRef.data().management) {
             manSelect.disabled = true;
             ownSelect.disabled = true;
-            setBtn.disabled = true;
 
             if (staffRef.data().owner || staffRef.data().management) {
                 staffdd.disabled = true;

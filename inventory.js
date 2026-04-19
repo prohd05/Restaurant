@@ -49,28 +49,69 @@ onAuthStateChanged(auth, async (user) => {
     const IngForm = document.getElementById("addIng");
     const user = auth.currentUser;
 
-    mealForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-    try{
+    document.getElementById("ingAdd").addEventListener("click", () => {
+    const container = document.getElementById("addIng");
 
-      const newDoc = await addDoc(collection(db, "menu"), {
-        title: document.getElementById("mealTitle").value,
-        type: document.getElementById("mealType").value,
-        price: document.getElementById("mealPrice").value,
-        picture: document.getElementById("mealImg").value,
-        createdAt: serverTimestamp()
-      });
-       await setDoc(doc(db, "items", newDoc.id), {
-        title: "a"
-      }); 
+    const row = document.createElement("div");
+    row.className = "ingRow";
 
-      document.getElementById("mealTitle").value = "";
-      document.getElementById("mealType").value = "";
-      document.getElementById("mealPrice").value = "";
-    }
-    catch(error){
-      alert("Error placing order: " + error.message);
-      console.error("Order error:", error); 
-    };
+    row.innerHTML = `
+        <input class="ingName" placeholder="Item" required>
+        <input class="ingAmount" type="number" placeholder="Amount" required>
+        <select class="ingUnit">
+            <option>Tablespoons</option>
+            <option>Ounces</option>
+            <option>Grams</option>
+            <option>Pounds</option>
+        </select>
+        <button class="ingRemove" type="button"> - </button>
+    `;
+
+    container.insertBefore(row, document.getElementById("ingAdd").lastElementChild);
+    row.querySelector(".ingRemove").addEventListener("click", () => {
+        row.remove();
     });
+  });
+
+    mealForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const title = document.getElementById("mealTitle").value;
+    const type = document.getElementById("mealType").value;
+    const img = document.getElementById("mealImg").value;
+    const price = parseFloat(document.getElementById("mealPrice").value);
+    const ingRows = document.querySelectorAll(".ingRow");
+
+    const ingredients = [];
+    ingRows.forEach(row => {
+        const name = row.querySelector(".ingName").value;
+        const amount = row.querySelector(".ingAmount").value;
+        const unit = row.querySelector(".ingUnit").value;
+
+        if (name && amount) {
+            ingredients.push({
+                name: name,
+                amount: amount,
+                unit: unit,
+            });
+        }
+    });
+
+    try {
+        const newDoc = await addDoc(collection(db, "menu"), {
+            title: title,
+            type: type,
+            picture: img,
+            price: price,
+            createdAt: serverTimestamp()
+        });
+        await setDoc(doc(db, "items", newDoc.id), {
+            ingredients: ingredients
+        });
+        alert("Meal added to menu");
+        window.location.reload();
+    } catch (err) {
+        console.error(err);
+    }
+});
   });

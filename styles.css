@@ -1,31 +1,401 @@
-#SIbackground{
-    background-image:url("assets/SIbackground.png");
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Rubik:ital,wght@0,300..900;1,300..900&family=Tac+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Notable&family=Rubik:ital,wght@0,300..900;1,300..900&family=Tac+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Notable&family=Pixelify+Sans:wght@400..700&family=Rubik:ital,wght@0,300..900;1,300..900&family=Tac+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Happy+Monkey&family=Notable&family=Pixelify+Sans:wght@400..700&family=Rubik:ital,wght@0,300..900;1,300..900&family=Tac+One&display=swap');
+
+#SIpage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Mobile Media Query*/
-@media screen and (max-width:799px) {
-    /* Sign In*/
+body{
+    background-color: #6EADFF;
+}
+
+#navPublic{
+    color: #ffe13a;
+}
+
+/* PC Media Query */
+@media screen and (min-width: 1200px){
+    /* Media Query */
+    h1{
+        font-family: "Audiowide";
+        font-size: 64px;
+        font-weight: 100;
+    }
+
+    h2{
+        font-family: "Tac One";
+        font-size: 48px;
+        font-weight: 100;
+    }
+
+    h4{
+        font-family: "Pixelify Sans";
+        font-size: 28px;
+        font-weight: 100;
+    }
+
+    h5, .heading5, .sideHome, .sideOrders, .sideInventory, .sideManagement, .sideAccounting{
+        font-family: "Notable";
+        font-size: 24px;
+        font-weight: 100;
+    }
+
+    p, .paragraph{
+        font-family: "Happy Monkey";
+        font-size: 24px;
+        font-weight: 100;
+    }
+
+    /* Global */
+    .footergif{
+        position: absolute;
+        right: 5%;
+        bottom: 1%;
+    }
+
+    /* Sign In */
+    #SIbackground{
+        background-image:url("assets/si-bg/desktop.png");
+        background-position: center;
+    }
 
     #SIlogo{
-        width:378px;
+        margin-top: 10%;
+        width:499px;
+    }
+
+    #google{
+        background-color: white;
+        border-radius: 10px;
+        border: none;
+        color:#6E630B;
+        height: 79px;
+        display: flex;
+        align-items: center;
+    }
+
+    #google img{
+        width: 63px;
+        height: 63px;
+        margin-right: 10px;
+    }
+
+    .SIfootergif{
+        height: 20%;
+        position: absolute;
+        right: 2%;
+        bottom: 1%;
+    }
+
+    /* Navbar */
+    .navbar{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 220px;
+        border-bottom: 2px solid #FFD16D;
+    }
+
+    .navSidebar, .navSignout, .navlogoClick{
+        background-color: transparent;
+        border: none;
+    }
+
+    .navlogo{
+        height: 216px;
+    }
+
+    .menuIcon{
+        width: 75px;
+    }
+    
+    .signoutIcon{
+        width: 74px;
+    }
+
+    .menuIcon:hover, .signoutIcon:hover, .navlogo:hover{
+        opacity: 50%;
+    }
+
+    .signoutArea{
+        display: flex;
+        justify-content: end;
+        text-align: center;
+        color:#ffe13a;
+    }
+
+    .navSideArea, .signoutArea{
+        width: 20%;
+    }
+
+    /* Sidebar */
+    .sidebar{
+        background-color: #FFD16D;
+        width: 474px;
+        height: 100%;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar a{
+        text-decoration: none;
+        margin-left: 5%;
+        margin-bottom: 5%;
+        margin-top: 5%;
+    }
+
+    .sidebar a:link{
+        color:#6EADFF;
+    }
+
+    .sidebar a:visited {
+        color:#6EADFF;
+    }
+
+    .sidebar a:hover{
+        color: white;
+    }
+
+    .sidebar a:active{
+        color: white;
     }
 }
 
-/* Tablet Media Query*/
+/* Tablet Media Query */
 @media screen and (min-width:800px) and (max-width: 1199px){
-    /* Sign In*/
+    /* Media Query */
+    h1{
+        font-family: "Audiowide";
+        font-size: 48px;
+        font-weight: 100;
+    }
+
+    h2{
+        font-family: "Tac One";
+        font-size: 36px;
+        font-weight: 100;
+    }
+
+    h4{
+        font-family: "Pixelify Sans";
+        font-size: 24px;
+        font-weight: 100;
+    }
+
+    h5, .heading5, .sideHome, .sideOrders, .sideInventory, .sideManagement, .sideAccounting{
+        font-family: "Notable";
+        font-size: 18px;
+        font-weight: 100;
+    }
+
+    p, .paragraph{
+        font-family: "Happy Monkey";
+        font-size: 18px;
+        font-weight: 100;
+    }
+
+    /* Global */
+    .footergif{
+        position: absolute;
+        right: 5%;
+        bottom: 1%;
+    }
+    
+    /* Sign In */
+    #SIbackground{
+        background-image:url("assets/si-bg/desktop.png");
+        background-position: center;
+    }
 
     #SIlogo{
+        margin-top: 20%;
         width:410px;
     }
+
+    #google{
+        background-color: white;
+        border-radius: 10px;
+        border: none;
+        color:#6E630B;
+        height: 61px;
+        display: flex;
+        align-items: center;
+    }
+
+    #google img{
+        width: 49px;
+        height: 49px;
+        margin-right: 10px;
+    }
+
+    .SIfootergif{
+        height: 20%;
+        position: absolute;
+        right: 1%;
+        bottom: 1%;
+    }
+
+    /* Navbar */
+    .navbar{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 147px;
+        border-bottom: 2px solid #FFD16D;
+    }
+    .navSidebar, .navSignout, .navlogoClick{
+        background-color: transparent;
+        border: none;
+    }
+
+    .navlogo{
+        height: 144px;
+    }
+
+    .menuIcon{
+        width: 59px;
+    }
+
+    .signoutIcon{
+        width: 58px;
+    }
+
+    .menuIcon:hover, .signoutIcon:hover, .navlogo:hover{
+        opacity: 50%;
+    }
+
+    .signoutArea{
+        display: flex;
+        justify-content: end;
+        text-align: center;
+        color:#ffe13a;
+    }   
+
+    .navSideArea, .signoutArea{
+        width: 20%;
+    }
 }
 
-/* PC Media Query*/
-@media screen and (min-width: 1200px){
+/* Mobile Media Query */
+@media screen and (max-width:799px) {
+    /* Media Query */
+    h1{
+        font-family: "Audiowide";
+        font-size: 36px;
+        font-weight: 100;
+    }
 
-    /* Sign In*/
+    h2{
+        font-family: "Tac One";
+        font-size: 28px;
+        font-weight: 100;
+    }
+
+    h4{
+        font-family: "Pixelify Sans";
+        font-size: 18px;
+        font-weight: 100;
+    }
+
+    h5, .heading5, .sideHome, .sideOrders, .sideInventory, .sideManagement, .sideAccounting{
+        font-family: "Notable";
+        font-size: 14px;
+        font-weight: 100;
+    }
+
+    p, .paragraph{
+        font-family: "Happy Monkey";
+        font-size: 14px;
+        font-weight: 100;
+    }
+
+    /* Global */
+    .footergif{
+        position: absolute;
+        right: 5%;
+        bottom: 1%;
+    }
+
+    /* Sign In */
+    #SIbackground{
+        background-image:url("assets/si-bg/tablet.png");
+        background-position: center;
+        
+    }
 
     #SIlogo{
-        width:499px;
+        margin-top: 30%;
+        width:378px;
+    }
+
+    #google{
+        background-color: white;
+        border-radius: 10px;
+        border: none;
+        color:#6E630B;
+        height: 47px;
+        display: flex;
+        align-items: center;
+    }
+
+    #google img{
+        width: 36px;
+        height: 36px;
+        margin-right: 8px;
+    }
+
+    .SIfootergif{
+        height: 20%;
+        position: absolute;
+        right: 8%;
+        bottom: 1%;
+    }
+
+    /* Navbar */
+    .navbar{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 103px;
+        border-bottom: 2px solid #FFD16D;
+    }
+
+    .navSidebar, .navSignout, .navlogoClick{
+        background-color: transparent;
+        border: none;
+    }
+
+    .navlogo{
+        height: 95px;
+    }
+
+    .menuIcon{
+        width: 48px;
+    }
+
+    .signoutIcon{
+        width: 35px;
+    }
+
+    .menuIcon:hover, .signoutIcon:hover, .navlogo:hover{
+        opacity: 50%;
+    }
+
+    .signoutArea{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        color:#ffe13a;
+    }
+
+    .navSideArea, .signoutArea{
+        width: 20%;
     }
 }
