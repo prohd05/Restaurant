@@ -147,50 +147,60 @@ async function getCart(user) {
         const startT = document.createElement("h2");
         startT.textContent = "Appetizers";
         startT.id = "sa";
+        startT.className = "sectionTitle";
         list.appendChild(startT);
         const stDiv = document.createElement("div");
         stDiv.class = "menuRow";
-        stDiv.id = "Appetizers"
+        stDiv.id = "Appetizers";
+        stDiv.className="sectionArea";
         list.append(stDiv);
         await displayFood("starter", user, stDiv);
 
         const mainT = document.createElement("h2");
         mainT.textContent = "Mains";
         mainT.id = "sm";
+        mainT.className = "sectionTitle";
         list.appendChild(mainT); 
         const mDiv = document.createElement("div");
         mDiv.class = "menuRow";
-        mDiv.id = "Mains"
+        mDiv.id = "Mains";
+        mDiv.className="sectionArea";
         list.append(mDiv);
         await displayFood("Main", user, mDiv);
 
         const sideT = document.createElement("h2");
         sideT.textContent = "Sides";
         sideT.id = "ss";
+        sideT.className = "sectionTitle";
         list.appendChild(sideT);
         const sDiv = document.createElement("div");
         sDiv.class = "menuRow";
-        sDiv.id = "Sides"
+        sDiv.id = "Sides";
+        sDiv.className="sectionArea";
         list.append(sDiv);
         await displayFood("Side", user, sDiv);
 
         const bevT = document.createElement("h2");
         bevT.textContent = "Beverages";
         bevT.id = "sb";
+        bevT.className = "sectionTitle";
         list.appendChild(bevT);
         const bDiv = document.createElement("div");
         bDiv.class = "menuRow";
-        bDiv.id = "Beverages"
+        bDiv.id = "Beverages";
+        bDiv.className="sectionArea";
         list.append(bDiv);
         await displayFood("Drink", user, bDiv);
 
         const dessT = document.createElement("h2");
         dessT.textContent = "Dessert";
         dessT.id = "sd";
+        dessT.className = "sectionTitle";
         list.appendChild(dessT);
         const dDiv = document.createElement("div");
         dDiv.class = "menuRow";
-        dDiv.id = "Dessert"
+        dDiv.id = "Dessert";
+        dDiv.className="sectionArea";
         list.append(dDiv);
         await displayFood("Dessert", user, dDiv);
       }
@@ -288,11 +298,11 @@ async function getCart(user) {
           const picture = document.createElement("img");
           picture.src = item.picture;
           picture.className = "menuPic"
-          picture.width = "50";
-          picture.height = "50";
+          picture.width = "100";
+          picture.height = "100";
           mainDiv.appendChild(picture);
 
-          const bottom = document.createElement("Btm")
+          const bottom = document.createElement("div")
           mainDiv.appendChild(bottom);
           
           const price = document.createElement("p");
@@ -301,6 +311,7 @@ async function getCart(user) {
 
           const addItem = document.createElement("button");
           addItem.textContent = "Add Item";
+          addItem.className = "addItem"
           bottom.appendChild(addItem);
 
           addItem.addEventListener("click", async () => {
