@@ -23,22 +23,48 @@ onAuthStateChanged(auth, async (user) => {
         orderList();
     });
 
-    async function orderList() {
-        const list = document.getElementById("orderViews");
-        list.innerHTML = "";
+    async function orderList(){
+    const list = document.getElementById("orderViews");
+    list.innerHTML = ""; 
+    const ordersMenu = [];
+    const orderSnapshot = await getDocs(collection(db, "orders"));
+    orderSnapshot.forEach((staffdoc) => {
+        ordersMenu.push({ id: staffdoc.id, ...staffdoc.data() });
+    });
+    ordersMenu.sort((a, b) => b.createdAt - a.createdAt);
+    for (const order of ordersMenu) {
+        const mainDiv = document.createElement("div");
+        mainDiv.className = "orderDiv";
+        list.appendChild(mainDiv);
 
-        const ordersMenu = [];
-        const ordersSnapshot = await getDocs(collection(db, "orders"));
-        ordersSnapshot.forEach((allItems) => {
-            ordersMenu.push({ id: allItems.id, ...allItems.data() });
+        const orderID = document.createElement("h4");
+        orderID.textContent = order.id;
+        mainDiv.appendChild(orderID);
+
+        const orderTime = document.createElement("p");
+        orderTime.textContent = order.createdAt.toDate().toLocaleString("en-US", {
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true
+        });;
+        orderTime.textContent += ", " + order.createdAt.toDate().toLocaleString("en-US", {
+            month: "2-digit",
+            day: "2-digit",
+            year: "2-digit",
         });
-        ordersMenu.sort((a, b) => a.createdAt - b.createdAt);
-        for (const order of ordersMenu) {
-            const mainDiv = document.createElement("div");
-            list.appendChild(mainDiv);
+        mainDiv.appendChild(orderTime);
 
-            const orderID = document.createElement("p");
-            orderID.textContent = order.id;
-            mainDiv.appendChild(orderID);
-    };
+        const itemref = await getDoc(doc(db, "orders", order.id));
+        
+        const orderList = document.createElement("ul");
+        orderList.textContent = "Orders:";
+        itemref.data().items.forEach(i => {
+            const li = document.createElement("li");
+            li.textContent = `${i.title}`;
+            orderList.appendChild(li);
+        });
+
+        // append to main div
+        mainDiv.appendChild(orderList);
+    }
 };

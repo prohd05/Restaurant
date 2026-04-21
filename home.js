@@ -224,7 +224,7 @@ async function getCart(user) {
             const mainDiv = document.createElement("div");
 
             const name = document.createElement("p");
-            name.textContent = `${item.title} x${item.qty}`;
+            name.textContent = `x${item.qty} ${item.title}`;
 
             const price = document.createElement("p");
             const itemTotal = item.price * item.qty;
