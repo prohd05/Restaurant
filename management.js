@@ -49,28 +49,34 @@ async function displayStaff(user, src){
         mainDiv.className = "staffDiv";
         list.appendChild(mainDiv);
 
-        const staffrole = document.createElement("span");
+        const lineDiv = document.createElement("div");
+        lineDiv.className = "lineDiv";
+        mainDiv.appendChild(lineDiv);
+
+        const staffrole = document.createElement("h5");
 
         if (staffRef.data().owner) {
-            staffrole.textContent = "Owner,";
+            staffrole.textContent = "Owner";
         } else if (staffRef.data().management) {
-            staffrole.textContent = "Management,";
+            staffrole.textContent = "Management";
         } else if (staffRef.data().chef) {
-            staffrole.textContent = "Chef,";
+            staffrole.textContent = "Chef";
         } else if (staffRef.data().waiter) {
-            staffrole.textContent = "Waiter,";
+            staffrole.textContent = "Waiter";
         } else {
-            staffrole.textContent = "Customer,";
+            staffrole.textContent = "Customer";
         }
 
-        const staffinfo = document.createElement("p");
-        staffinfo.appendChild(staffrole);
-        staffinfo.textContent += ` ${staff.name} | ${staff.id} `;
-        mainDiv.appendChild(staffinfo);
+        const staffinfo = document.createElement("h5");
+        lineDiv.appendChild(staffrole);
+        staffinfo.textContent += staff.name + " | " + staff.id;
+        staffinfo.className = "staffInfo";
+        lineDiv.appendChild(staffinfo);
         
 
         const staffdd = document.createElement("select");
-        staffinfo.appendChild(staffdd);
+        staffdd.className = "staffDD";
+        lineDiv.appendChild(staffdd);
 
         const cusSelect = new Option("Customer", "p");
         const waitSelect = new Option("Waiter", "w");
@@ -81,7 +87,8 @@ async function displayStaff(user, src){
         const setBtn = document.createElement("button");
         setBtn.textContent = "Set";
         setBtn.type = "submit";
-        staffinfo.appendChild(setBtn);
+        setBtn.className = "setButton"
+        lineDiv.appendChild(setBtn);
 
 
         staffdd.append(cusSelect, waitSelect, chefSelect, manSelect, ownSelect);

@@ -37,11 +37,31 @@ onAuthStateChanged(auth, async (user) => {
         mainDiv.className = "orderDiv";
         list.appendChild(mainDiv);
 
+        const topDiv = document.createElement("div");
+        topDiv.className = "topDiv";
+        mainDiv.appendChild(topDiv);
+        
         const orderID = document.createElement("h4");
-        orderID.textContent = order.id;
-        mainDiv.appendChild(orderID);
+        orderID.textContent = "ID: " + order.id;
+        topDiv.appendChild(orderID);
 
-        const orderTime = document.createElement("p");
+
+        const botDiv = document.createElement("div");
+        botDiv.className = "bottomDiv";
+        mainDiv.appendChild(botDiv);
+
+        const itemref = await getDoc(doc(db, "orders", order.id));
+        const orderList = document.createElement("ul");
+        orderList.className = "orderul";
+        orderList.textContent = "Orders:";
+        itemref.data().items.forEach(i => {
+            const li = document.createElement("li");
+            li.textContent = `${i.title}`;
+            orderList.appendChild(li);
+        });
+        botDiv.appendChild(orderList);
+        
+        const orderTime = document.createElement("h4");
         orderTime.textContent = order.createdAt.toDate().toLocaleString("en-US", {
             hour: "numeric",
             minute: "2-digit",
@@ -52,19 +72,10 @@ onAuthStateChanged(auth, async (user) => {
             day: "2-digit",
             year: "2-digit",
         });
-        mainDiv.appendChild(orderTime);
+        botDiv.appendChild(orderTime);
 
-        const itemref = await getDoc(doc(db, "orders", order.id));
-        
-        const orderList = document.createElement("ul");
-        orderList.textContent = "Orders:";
-        itemref.data().items.forEach(i => {
-            const li = document.createElement("li");
-            li.textContent = `${i.title}`;
-            orderList.appendChild(li);
-        });
-
-        // append to main div
-        mainDiv.appendChild(orderList);
+        const orderButton = document.createElement("button");
+        orderButton.textContent = "Complete";
+        mainDiv.appendChild(orderButton);
     }
 };
