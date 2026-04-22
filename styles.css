@@ -27,6 +27,70 @@ body{
     font-size: 13px;
 }
 
+.sidebar a{
+    width: max-content;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+    background: #ffe13a;
+    border: none;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background: #CCB42E;
+    border: none;
+    border-radius: 5px;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+    background: #002FA4;
+    border: none;
+    border-radius: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover{
+    background: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.bottomDiv::-webkit-scrollbar-thumb{
+    background: #002FA4;
+    border: none;
+    border-radius: 5px;
+}
+
+.bottomDiv::-webkit-scrollbar-thumb:hover{
+    background: #006eff;
+    border: none;
+    border-radius: 5px;
+}
+
+.topDiv::-webkit-scrollbar{
+    height: 5px;
+}
+
+.topDiv::-webkit-scrollbar-thumb{
+    background: #006eff;
+    border: none;
+    border-radius: 5px;
+}
+
+.topDiv::-webkit-scrollbar-thumb:hover{
+    background: white;
+    border: none;
+    border-radius: 5px;
+}
+
 
 /* PC Media Query */
 @media screen and (min-width: 1200px){
@@ -43,7 +107,7 @@ body{
         font-weight: 100;
     }
 
-    h4, .orderul{
+    h4, .orderul, .complete{
         font-family: "Pixelify Sans";
         font-size: 28px;
         font-weight: bold;
@@ -62,12 +126,6 @@ body{
     }
 
     /* Global */
-    .footergif{
-        position: absolute;
-        right: 5%;
-        bottom: 1%;
-    }
-
     .mainPages{
         padding-top: 220px;
     }
@@ -136,8 +194,8 @@ body{
         width: 74px;
     }
 
-    .menuIcon:hover, .signoutIcon:hover, .navlogo:hover{
-        opacity: 50%;
+    #homeTitle{
+        margin: 0px;
     }
 
     .signoutArea{
@@ -185,6 +243,21 @@ body{
 
     .sidebar a:active{
         color: white;
+    }
+
+    /* Footer */
+    .footer{
+        display: flex;
+        justify-content: start;
+        align-items: end;
+        height: 212px;
+        margin-top: 10%;
+        background-image: url("assets/footer.png");
+    }
+
+    .footerSonic{
+        height: 222px;
+        margin-bottom: 50px;
     }
 
     /* Menu */
@@ -288,31 +361,63 @@ body{
     /* Orders */
     #orderViews{
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
         place-items: center;
-        row-gap: 4%;
+        align-items: start;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        row-gap: 10%;
+        column-gap: 4%;
     }
 
     .orderDiv{
-        width: 430px;
         display: flex;
         flex-direction: column;
-    }
-
-
-    .bottomDiv{
-        background-color: #FFD16D;
-        color:#6EADFF;
+        width: fit-content;
+        max-width: 100%;
+        height: 500px;
     }
 
     .topDiv{
         background-color: #002FA4;
         border-top-left-radius: 40px;
         border-top-right-radius: 40px;
-        border: none;
+        border: solid black 1px;
         border-bottom: solid black 1px;
         color:#6EADFF;
-        padding-left: 20px;
+        height: 75px;
+        overflow-y: hidden;
+        overflow-x: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .topDiv::-webkit-scrollbar{
+        height: 5px;
+    }
+
+    .bottomDiv{
+        background-color: #FFD16D;
+        color:#6EADFF;
+        height: 425px;
+        border: solid black 1px;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .bottomDiv::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .orderTime{
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        margin: 0px;
+        margin-right: 2px;
+        margin-top: auto;
     }
 
     .topDiv h4{
@@ -320,8 +425,22 @@ body{
         margin: 0px;
     }
 
+    .orderul{
+        margin: 0px;
+        padding:0px;
+        margin-right: 2px;
+    }
+
     .orderul li{
-        margin-left: 40px;
+        margin: 0px;
+        margin-left: 20%;
+    }
+
+    .complete{
+        border-bottom-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+        border: solid black 1px;
+        background-color: #50C878;
     }
 }
 
@@ -340,7 +459,7 @@ body{
         font-weight: 100;
     }
 
-    h4{
+    h4, .orderul, .complete{
         font-family: "Pixelify Sans";
         font-size: 24px;
         font-weight: bold;
@@ -359,12 +478,6 @@ body{
     }
 
     /* Global */
-    .footergif{
-        position: absolute;
-        right: 5%;
-        bottom: 1%;
-    }
-
     .mainPages{
         padding-top: 147px;
     }
@@ -432,8 +545,8 @@ body{
         width: 58px;
     }
 
-    .menuIcon:hover, .signoutIcon:hover, .navlogo:hover{
-        opacity: 50%;
+    #homeTitle{
+        margin: 0px;
     }
 
     .signoutArea{
@@ -630,6 +743,91 @@ body{
         height: 45px;
         border-radius: 10px;
     }
+
+    /* Orders */
+    #orderViews{
+        display: grid;
+        place-items: center;
+        align-items: start;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        row-gap: 10%;
+        column-gap: 4%;
+    }
+
+    .orderDiv{
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+        max-width: 100%;
+        height: 500px;
+    }
+
+    .topDiv{
+        background-color: #002FA4;
+        border-top-left-radius: 40px;
+        border-top-right-radius: 40px;
+        border: solid black 1px;
+        border-bottom: solid black 1px;
+        color:#6EADFF;
+        height: 75px;
+        overflow-y: hidden;
+        overflow-x: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .topDiv::-webkit-scrollbar{
+        height: 5px;
+    }
+
+    .bottomDiv{
+        background-color: #FFD16D;
+        color:#6EADFF;
+        height: 425px;
+        border: solid black 1px;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .bottomDiv::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .orderTime{
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        margin: 0px;
+        margin-right: 2px;
+        margin-top: auto;
+    }
+
+    .topDiv h4{
+        text-align: center;
+        margin: 0px;
+    }
+
+    .orderul{
+        margin: 0px;
+        padding:0px;
+        margin-right: 2px;
+    }
+
+    .orderul li{
+        margin: 0px;
+        margin-left: 20%;
+    }
+
+    .complete{
+        border-bottom-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+        border: solid black 1px;
+        background-color: #50C878;
+    }
 }
 
 /* Mobile Media Query */
@@ -666,12 +864,6 @@ body{
     }
 
     /* Global */
-    .footergif{
-        position: absolute;
-        right: 5%;
-        bottom: 1%;
-    }
-
     .mainPages{
         padding-top: 103px;
     }
@@ -679,8 +871,7 @@ body{
     /* Sign In */
     #SIbackground{
         background-image:url("assets/si-bg/tablet.png");
-        background-position: center;
-        
+        background-position: center; 
     }
 
     #SIlogo{
@@ -741,8 +932,8 @@ body{
         width: 35px;
     }
 
-    .menuIcon:hover, .signoutIcon:hover, .navlogo:hover{
-        opacity: 50%;
+    #homeTitle{
+        margin: 0px;
     }
 
     .signoutArea{
