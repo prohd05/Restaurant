@@ -26,6 +26,17 @@
             <a href="accounting.html" class="sideAccounting"> Accounting </a>
         </div>
         <div class="mainPages">
+            <div id="addIngTotal">
+                <p>Add Ingredients</p>
+                <form id="addIng">
+                    <input id="ogName" placeholder="Item" required>
+                    <input id="ogAmount" type="number" placeholder="Amount" required>
+                    <input id="ogLow" type="number" placeholder="Low Threshold" required>
+                    <input id="ogType" placeholder="Measurement" required>
+                    <button id="ogAdd" type="submit"> + </button>
+                </form>
+            </div>
+
             <form id="addMeal">
                 <p>Add Meal</p>
                 <input id="mealTitle" placeholder="Title" required><br>
@@ -39,25 +50,19 @@
 
                 <input id="mealImg" placeholder="Image Link"><br>
                 <input id="mealPrice" type="number" placeholder="Price" required><br>
-
-                <div id="addIng">
-                    <p>Ingredients</p> <button id="ingAdd" type="button">+</button>
-
-                    <div class="ingRow">
-                        <input class="ingName" placeholder="Item" required>
-                        <input class="ingAmount" type="number" placeholder="Amount" required>
-                        <select class="ingUnit">
-                            <option>Tablespoons</option>
-                            <option>Ounces</option>
-                            <option>Grams</option>
-                            <option>Pounds</option>
-                        </select>
-                    </div>
-                </div>
                 <button id="mealSub" type="submit">Add Meal</button>
             </form> 
-            <div id="viewInventory">
+            <hr>
+            <div id="viewArea">
+                <p> Inventory</p>
+                <div id="viewInventory">
 
+                </div>
+                <hr>
+                <p> Menu </p>
+                <div id="viewMenu">
+
+                </div>
             </div>
         </div>
         <script type="module" src="scriptcomp/navbar.js" defer></script>

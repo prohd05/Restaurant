@@ -24,79 +24,79 @@ onAuthStateChanged(auth, async (user) => {
     });
 
     async function orderList(){
-    const list = document.getElementById("orderViews");
-    list.innerHTML = ""; 
-    const ordersMenu = [];
-    const orderSnapshot = await getDocs(collection(db, "orders"));
-    orderSnapshot.forEach((staffdoc) => {
-        ordersMenu.push({ id: staffdoc.id, ...staffdoc.data() });
-    });
-    ordersMenu.sort((a, b) => b.createdAt - a.createdAt);
-    for (const order of ordersMenu) {
-        if(order.status == "pending"){
-            const mainDiv = document.createElement("div");
-            mainDiv.className = "orderDiv";
-            list.appendChild(mainDiv);
+        const list = document.getElementById("orderViews");
+        list.innerHTML = ""; 
+        const ordersMenu = [];
+        const orderSnapshot = await getDocs(collection(db, "orders"));
+        orderSnapshot.forEach((staffdoc) => {
+            ordersMenu.push({ id: staffdoc.id, ...staffdoc.data() });
+        });
+        ordersMenu.sort((a, b) => b.createdAt - a.createdAt);
+        for (const order of ordersMenu) {
+            if(order.status == "pending"){
+                const mainDiv = document.createElement("div");
+                mainDiv.className = "orderDiv";
+                list.appendChild(mainDiv);
 
-            const topDiv = document.createElement("div");
-            topDiv.className = "topDiv";
-            mainDiv.appendChild(topDiv);
-            
-            const orderID = document.createElement("h4");
-            orderID.textContent = order.id;
-            topDiv.appendChild(orderID);
+                const topDiv = document.createElement("div");
+                topDiv.className = "topDiv";
+                mainDiv.appendChild(topDiv);
+                
+                const orderID = document.createElement("h4");
+                orderID.textContent = "ID: " + order.id;
+                topDiv.appendChild(orderID);
 
 
-            const botDiv = document.createElement("div");
-            botDiv.className = "bottomDiv";
-            mainDiv.appendChild(botDiv);
+                const botDiv = document.createElement("div");
+                botDiv.className = "bottomDiv";
+                mainDiv.appendChild(botDiv);
 
-            const itemref = await getDoc(doc(db, "orders", order.id));
-            const orderList = document.createElement("ul");
-            orderList.className = "orderul";
-            orderList.textContent = "Orders:";
-            itemref.data().items.forEach(i => {
-                const li = document.createElement("li");
-                li.textContent = `${i.title}`;
-                orderList.appendChild(li);
-            });
-            botDiv.appendChild(orderList);
-            
-            const orderTime = document.createElement("h4");
-            orderTime.className = "orderTime"
-            orderTime.textContent = order.createdAt.toDate().toLocaleString("en-US", {
-                hour: "numeric",
-                minute: "2-digit",
-                hour12: true
-            });;
-            orderTime.textContent += ", " + order.createdAt.toDate().toLocaleString("en-US", {
-                month: "2-digit",
-                day: "2-digit",
-                year: "2-digit",
-            });
-            botDiv.appendChild(orderTime);
+                const itemref = await getDoc(doc(db, "orders", order.id));
+                const orderList = document.createElement("ul");
+                orderList.className = "orderul";
+                orderList.textContent = "Orders:";
+                itemref.data().items.forEach(i => {
+                    const li = document.createElement("li");
+                    li.textContent = `${i.title}`;
+                    orderList.appendChild(li);
+                });
+                botDiv.appendChild(orderList);
+                
+                const orderTime = document.createElement("h4");
+                orderTime.className = "orderTime"
+                orderTime.textContent = order.createdAt.toDate().toLocaleString("en-US", {
+                    hour: "numeric",
+                    minute: "2-digit",
+                    hour12: true
+                });;
+                orderTime.textContent += ", " + order.createdAt.toDate().toLocaleString("en-US", {
+                    month: "2-digit",
+                    day: "2-digit",
+                    year: "2-digit",
+                });
+                botDiv.appendChild(orderTime);
 
-            const orderButton = document.createElement("button");
-            orderButton.className = "complete"
-            orderButton.textContent = "Complete Order";
-            mainDiv.appendChild(orderButton);
-            
-            async function confirmButton(){
-                    if (confirm("Confirm to complete order")) {
-                      try {
-                        await updateDoc(doc(db, "orders", order.id), {
-                            status: "completed"
-                        });
-                        window.location.reload();
-                        } catch (error) {
-                            console.error("Error updating order:", error);
+                const orderButton = document.createElement("button");
+                orderButton.className = "complete"
+                orderButton.textContent = "Complete Order";
+                mainDiv.appendChild(orderButton);
+                
+                async function confirmButton(){
+                        if (confirm("Confirm to complete order")) {
+                        try {
+                            await updateDoc(doc(db, "orders", order.id), {
+                                status: "completed"
+                            });
+                            window.location.reload();
+                            } catch (error) {
+                                console.error("Error updating order:", error);
+                            }  
                         }  
-                    }  
-                };
+                    };
 
-                orderButton.addEventListener("click", async () => {
-                confirmButton();
-            });
+                    orderButton.addEventListener("click", async () => {
+                    confirmButton();
+                });
+            }
         }
-    }
-};
+    };

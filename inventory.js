@@ -41,38 +41,128 @@ onAuthStateChanged(auth, async (user) => {
       }, 1000);
     }
 
-    
-  });
+    viewInventory();
+    viewMenu();
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const mealForm = document.getElementById("addMeal");
-    const IngForm = document.getElementById("addIng");
-    const user = auth.currentUser;
-
-    document.getElementById("ingAdd").addEventListener("click", () => {
-    const container = document.getElementById("addIng");
-
-    const row = document.createElement("div");
-    row.className = "ingRow";
-
-    row.innerHTML = `
-        <input class="ingName" placeholder="Item" required>
-        <input class="ingAmount" type="number" placeholder="Amount" required>
-        <select class="ingUnit">
-            <option>Tablespoons</option>
-            <option>Ounces</option>
-            <option>Grams</option>
-            <option>Pounds</option>
-        </select>
-        <button class="ingRemove" type="button"> - </button>
-    `;
-
-    container.insertBefore(row, document.getElementById("ingAdd").lastElementChild);
-    row.querySelector(".ingRemove").addEventListener("click", () => {
-        row.remove();
+    const addIngForm = document.getElementById("addIng");
+    addIngForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      addInventory();
     });
   });
 
+  async function addInventory() {
+    const itemName = document.getElementById("ogName").value;
+    const itemAmount = document.getElementById("ogAmount").value;
+    const itemType = document.getElementById("ogType").value;
+    const itemLow = document.getElementById("ogLow").value;
+    const addButton = document.getElementById("ogAdd");
+      try {
+        await setDoc(doc(db, "inventory", itemName), {
+            name: itemName,
+            amount: itemAmount,
+            lowAmount: itemLow,
+            measurement: itemType,
+            createdAt: serverTimestamp()
+        });
+        document.getElementById("ogName").value = "";
+        document.getElementById("ogAmount").value = "";
+        document.getElementById("ogType").value = "";
+        document.getElementById("ogLow").value = "";
+        viewInventory();
+    } catch (err) {
+        console.error(err);
+    }
+  }
+
+  async function viewInventory(){
+    const list = document.getElementById("viewInventory");
+        list.innerHTML = ""; 
+        const ordersInv = [];
+        const InvSnapshot = await getDocs(collection(db, "inventory"));
+        InvSnapshot.forEach((staffdoc) => {
+          ordersInv.push({ id: staffdoc.id, ...staffdoc.data() });
+        });
+        ordersInv.sort((a, b) => b.createdAt - a.createdAt);
+        for (const item of ordersInv) {
+          const mainDiv = document.createElement("div");
+          mainDiv.className = "invDiv"
+          list.appendChild(mainDiv);
+
+          const name = document.createElement("p");
+          name.textContent = "Item: " + item.name;
+          mainDiv.appendChild(name);
+
+          async function stateAmount() {
+            const low = document.createElement("p");
+            low.textContent = "LOW STOCK";
+            low.style.color = "red";
+            mainDiv.appendChild(low);
+            if(item.amount > item.lowAmount){
+              low.remove();
+            }
+            const amount = document.createElement("p");
+            amount.textContent = "Amount: " + item.amount + " " + item.measurement;
+            mainDiv.appendChild(amount);
+          }
+          
+          stateAmount();
+
+        // Menu (Amount) 
+        // Buns Example: Burger (2)
+
+        //Plus button with input to add or remove the amount
+
+          const amountRef = doc(db, "inventory", item.id)
+
+          const addAmount = document.createElement("button");
+          addAmount.textContent = "+";
+          mainDiv.appendChild(addAmount);
+
+          addAmount.addEventListener("submit", async (event) => {
+            let aa = item.amount + 1;
+            try{
+              await updateDoc(amountRef, {
+                amount:aa
+              });
+            }
+            catch{
+
+            }
+          });
+
+          const amountV = document.createElement("input");
+          amountV.placeholder = "Amount";
+          mainDiv.appendChild(amountV);
+
+          const minusAmount = document.createElement("button");
+          minusAmount.textContent = "-";
+          mainDiv.appendChild(minusAmount);
+      }
+  };
+
+  async function viewMenu(){
+    const list = document.getElementById("viewMenu");
+        list.innerHTML = ""; 
+        const ordersInv = [];
+        const InvSnapshot = await getDocs(collection(db, "menu"));
+        InvSnapshot.forEach((staffdoc) => {
+          ordersInv.push({ id: staffdoc.id, ...staffdoc.data() });
+        });
+        ordersInv.sort((a, b) => b.createdAt - a.createdAt);
+        for (const item of ordersInv) {
+          const mainDiv = document.createElement("div");
+          mainDiv.className = "invDiv"
+          list.appendChild(mainDiv);
+
+          const title = document.createElement("p");
+          title.textContent = item.title;
+          mainDiv.appendChild(title);
+      }
+  };
+
+   document.addEventListener("DOMContentLoaded", () => {
+    const mealForm = document.getElementById("addMeal");
     mealForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -80,22 +170,6 @@ onAuthStateChanged(auth, async (user) => {
     const type = document.getElementById("mealType").value;
     const img = document.getElementById("mealImg").value;
     const price = parseFloat(document.getElementById("mealPrice").value);
-    const ingRows = document.querySelectorAll(".ingRow");
-
-    const ingredients = [];
-    ingRows.forEach(row => {
-        const name = row.querySelector(".ingName").value;
-        const amount = row.querySelector(".ingAmount").value;
-        const unit = row.querySelector(".ingUnit").value;
-
-        if (name && amount) {
-            ingredients.push({
-                name: name,
-                amount: amount,
-                unit: unit,
-            });
-        }
-    });
 
     try {
         const newDoc = await addDoc(collection(db, "menu"), {
@@ -104,9 +178,6 @@ onAuthStateChanged(auth, async (user) => {
             picture: img,
             price: price,
             createdAt: serverTimestamp()
-        });
-        await setDoc(doc(db, "items", newDoc.id), {
-            ingredients: ingredients
         });
         alert("Meal added to menu");
         window.location.reload();
