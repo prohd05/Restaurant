@@ -31,6 +31,7 @@ onAuthStateChanged(auth, async (user) => {
     const buttonArea = document.querySelectorAll(".navSideArea");
     const hSelect = document.querySelectorAll(".sideHome");
     const oSelect = document.querySelectorAll(".sideOrders");
+    const sSelect = document.querySelectorAll(".sideShift");
     const mSelect = document.querySelectorAll(".sideManagement");
     const iSelect = document.querySelectorAll(".sideInventory");
     const aSelect = document.querySelectorAll(".sideAccounting");
@@ -38,6 +39,9 @@ onAuthStateChanged(auth, async (user) => {
     if(!roleRef.data().waiter && !roleRef.data().chef && !roleRef.data().management && !roleRef.data().owner){
         //navPublic.remove();
         hSelect.forEach(el => {
+            el.remove();
+        });
+        sSelect.forEach(el => {
             el.remove();
         });
         oSelect.forEach(el => {

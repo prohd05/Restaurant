@@ -46,7 +46,6 @@ import { updateDoc, deleteDoc, setDoc, collection, doc, addDoc, getDoc ,getDocs,
 }
 
 // Remove Order from Cart
-
 async function removeFromCart(user, index) {
     const ref = doc(db, "carts", user.uid);
     const snap = await getDoc(ref);
@@ -92,7 +91,7 @@ async function getCart(user) {
               total += itemTotal;
           });
           total = total.toFixed(2);
-          totalText.textContent = "Total: $" + total;
+          totalText.textContent = "Your Total: $" + total;
       });
   }
 
@@ -157,7 +156,7 @@ async function getCart(user) {
         await displayFood("starter", user, stDiv);
 
         const mainT = document.createElement("h2");
-        mainT.textContent = "Mains";
+        mainT.textContent = "Main Meals";
         mainT.id = "sm";
         mainT.className = "sectionTitle";
         list.appendChild(mainT); 
@@ -168,7 +167,7 @@ async function getCart(user) {
         list.append(mDiv);
         await displayFood("Main", user, mDiv);
 
-        const sideT = document.createElement("h2");
+        /*const sideT = document.createElement("h2");
         sideT.textContent = "Sides";
         sideT.id = "ss";
         sideT.className = "sectionTitle";
@@ -178,7 +177,7 @@ async function getCart(user) {
         sDiv.id = "Sides";
         sDiv.className="sectionArea";
         list.append(sDiv);
-        await displayFood("Side", user, sDiv);
+        await displayFood("Side", user, sDiv);*/
 
         const bevT = document.createElement("h2");
         bevT.textContent = "Beverages";
@@ -193,7 +192,7 @@ async function getCart(user) {
         await displayFood("Drink", user, bDiv);
 
         const dessT = document.createElement("h2");
-        dessT.textContent = "Dessert";
+        dessT.textContent = "Desserts";
         dessT.id = "sd";
         dessT.className = "sectionTitle";
         list.appendChild(dessT);
@@ -217,6 +216,11 @@ async function getCart(user) {
       
       // View Pending Order
       if (type == "Cart"){
+        /*const menSide = document.querySelectorAll(".publicLinks");
+        menSide.forEach(el => {
+            el.style.visibility = "hidden";
+        });*/
+
         const items = await getCart(user);
         const TAX_RATE = 0.06625;
         let subtotal = 0;
@@ -287,6 +291,7 @@ async function getCart(user) {
       orderMenu.sort((a, b) => a.createdAt - b.createdAt);
       for (const item of orderMenu) {
         if (item.type === type) {
+
           const mainDiv = document.createElement("div");
           mainDiv.className = "menuDiv";
           div.appendChild(mainDiv);
@@ -298,21 +303,22 @@ async function getCart(user) {
           const picture = document.createElement("img");
           picture.src = item.picture;
           picture.className = "menuPic"
-          picture.width = "100";
-          picture.height = "100";
+          //picture.width = "100";
+          //picture.height = "100";
           mainDiv.appendChild(picture);
 
           const bottom = document.createElement("div")
           mainDiv.appendChild(bottom);
-          
-          const price = document.createElement("p");
-          price.textContent = "$" + item.price;
-          bottom.appendChild(price);
 
           const addItem = document.createElement("button");
           addItem.textContent = "Add Item";
           addItem.className = "addItem"
           bottom.appendChild(addItem);
+          
+          const price = document.createElement("p");
+          price.textContent = "$" + item.price;
+          price.className = "menuPrice"
+          bottom.appendChild(price);
 
           addItem.addEventListener("click", async () => {
               await addToCart(user, item);

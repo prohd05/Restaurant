@@ -1,6 +1,6 @@
 import { auth, db } from "./firebase-config.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { updateDoc, collection, doc, addDoc, setDoc, getDoc ,getDocs, serverTimestamp} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { onSnapshot, deleteDoc, updateDoc, collection, doc, addDoc, setDoc, getDoc ,getDocs, serverTimestamp} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // Listen for auth state changes
 onAuthStateChanged(auth, async (user) => {
@@ -49,13 +49,20 @@ onAuthStateChanged(auth, async (user) => {
       event.preventDefault();
       addInventory();
     });
+
+    const addMenuForm = document.getElementById("addMeal");
+    addMenuForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      addMenuItem();
+    });
   });
 
   async function addInventory() {
     const itemName = document.getElementById("ogName").value;
-    const itemAmount = document.getElementById("ogAmount").value;
+    const itemAmount = parseInt(document.getElementById("ogAmount").value);
     const itemType = document.getElementById("ogType").value;
-    const itemLow = document.getElementById("ogLow").value;
+    const itemPrice = parseInt(document.getElementById("ogPrice").value);
+    const itemLow = parseInt(document.getElementById("ogLow").value);
     const addButton = document.getElementById("ogAdd");
       try {
         await setDoc(doc(db, "inventory", itemName), {
@@ -63,17 +70,43 @@ onAuthStateChanged(auth, async (user) => {
             amount: itemAmount,
             lowAmount: itemLow,
             measurement: itemType,
-            createdAt: serverTimestamp()
+            pricePer: itemPrice,
+            createdAt: serverTimestamp(),
+            menuItems: []
         });
         document.getElementById("ogName").value = "";
         document.getElementById("ogAmount").value = "";
         document.getElementById("ogType").value = "";
         document.getElementById("ogLow").value = "";
+        document.getElementById("ogPrice").value = "";
         viewInventory();
     } catch (err) {
         console.error(err);
     }
   }
+
+  async function addMenuItem(){
+    const title = document.getElementById("mealTitle").value;
+    const type = document.getElementById("mealType").value;
+    const img = document.getElementById("mealImg").value;
+    const price = parseFloat(document.getElementById("mealPrice").value);
+    try {
+        const newDoc = await addDoc(collection(db, "menu"), {
+            title: title,
+            type: type,
+            picture: "assets/menu/",
+            price: price,
+            createdAt: serverTimestamp()
+        });
+        document.getElementById("mealTitle").value = "";
+        document.getElementById("mealImg").value = "";
+        document.getElementById("mealPrice").value = "";
+        viewMenu();
+        viewInventory();
+        } catch (err) {
+            console.error(err);
+        }
+  };
 
   async function viewInventory(){
     const list = document.getElementById("viewInventory");
@@ -83,62 +116,207 @@ onAuthStateChanged(auth, async (user) => {
         InvSnapshot.forEach((staffdoc) => {
           ordersInv.push({ id: staffdoc.id, ...staffdoc.data() });
         });
-        ordersInv.sort((a, b) => b.createdAt - a.createdAt);
+        ordersInv.sort((a, b) => a.name.localeCompare(b.name));
         for (const item of ordersInv) {
           const mainDiv = document.createElement("div");
           mainDiv.className = "invDiv"
           list.appendChild(mainDiv);
 
+          const leftDiv = document.createElement("div");
+          leftDiv.className = "leftInv"
+          mainDiv.appendChild(leftDiv);
+
           const name = document.createElement("p");
           name.textContent = "Item: " + item.name;
-          mainDiv.appendChild(name);
+          leftDiv.appendChild(name);
 
-          async function stateAmount() {
-            const low = document.createElement("p");
-            low.textContent = "LOW STOCK";
-            low.style.color = "red";
-            mainDiv.appendChild(low);
+          const price = document.createElement("p");
+          price.textContent = "Price: $" + item.pricePer + " per " + item.measurement;
+          leftDiv.appendChild(price);
+
+          const low = document.createElement("p");
+          low.textContent = "LOW STOCK";
+          low.style.color = "red";
+          leftDiv.appendChild(low);
+          function lowUpdate(){
             if(item.amount > item.lowAmount){
-              low.remove();
+              low.style.visibility = "hidden";
             }
-            const amount = document.createElement("p");
-            amount.textContent = "Amount: " + item.amount + " " + item.measurement;
-            mainDiv.appendChild(amount);
+            else{
+              low.style.visibility = "visible";
+            }
           }
-          
-          stateAmount();
 
-        // Menu (Amount) 
-        // Buns Example: Burger (2)
+          lowUpdate();
 
-        //Plus button with input to add or remove the amount
+          const amountRef = doc(db, "inventory", item.id);
+          const amount = document.createElement("p");
+          amount.textContent = "Amount: " + item.amount + " " + item.measurement;
+          leftDiv.appendChild(amount);
 
-          const amountRef = doc(db, "inventory", item.id)
+          onSnapshot(amountRef, (uItem) => {
+          if (uItem.exists()) {
+              const data = uItem.data();
+              item.amount = data.amount;
+              amount.textContent = "Amount: " + data.amount + " " + data.measurement;
+              low.style.display = data.amount > data.lowAmount ? "none" : "block";
+          }
+          lowUpdate();
+      });
 
           const addAmount = document.createElement("button");
           addAmount.textContent = "+";
-          mainDiv.appendChild(addAmount);
-
-          addAmount.addEventListener("submit", async (event) => {
-            let aa = item.amount + 1;
-            try{
-              await updateDoc(amountRef, {
-                amount:aa
-              });
-            }
-            catch{
-
-            }
-          });
+          leftDiv.appendChild(addAmount);
 
           const amountV = document.createElement("input");
+          amountV.type = "number";
           amountV.placeholder = "Amount";
-          mainDiv.appendChild(amountV);
+          amountV.min = "1";
+          leftDiv.appendChild(amountV);
+
+          addAmount.addEventListener("click", async () => {
+              let change = parseInt(amountV.value) || 1;
+              let newAmount = parseInt(item.amount) + change;
+
+              try {
+                  await updateDoc(amountRef, {
+                      amount: newAmount
+                  });
+              } catch (error) {
+                  console.error(error);
+              }
+          });
 
           const minusAmount = document.createElement("button");
           minusAmount.textContent = "-";
-          mainDiv.appendChild(minusAmount);
-      }
+          leftDiv.appendChild(minusAmount);
+
+          minusAmount.addEventListener("click", async () => {
+              let change = parseInt(amountV.value) || 1;
+              let newAmount = parseInt(item.amount) - change;
+
+              if (newAmount < 0) {
+                  newAmount = 0;
+              }
+
+              try {
+                  await updateDoc(amountRef, {
+                      amount: newAmount
+                  });
+                  } catch (error) {
+                  console.error(error);
+              }
+          });
+
+          const rightDiv = document.createElement("div");
+          rightDiv.className = "rightInv"
+          mainDiv.appendChild(rightDiv); 
+
+          const menuDrop = document.createElement("select");
+          menuDrop.className = "menuDrop";
+          rightDiv.appendChild(menuDrop); 
+
+          const menuAmount = document.createElement("input");
+          menuAmount.className = "menuInput";
+          menuAmount.type = "number";
+          rightDiv.appendChild(menuAmount); 
+
+          const menuSnapshot = await getDocs(collection(db, "menu"));
+
+          const menuItems = [];
+
+          menuSnapshot.forEach((docSnap) => {
+              menuItems.push({
+                  id: docSnap.id,
+                  ...docSnap.data()
+              });
+          });
+
+          menuItems.sort((a, b) => a.title.localeCompare(b.title));
+
+          menuItems.forEach((menuItem) => {
+              const option = document.createElement("option");
+              option.value = menuItem.id;
+              option.textContent = menuItem.title;
+
+              menuDrop.appendChild(option);
+          });
+
+          const addMenu = document.createElement("button");
+          addMenu.textContent = "+";
+          rightDiv.appendChild(addMenu); 
+          
+          const itemList = document.createElement("div");
+          itemList.className = "itemList";
+
+          async function inventoryMenu(id) {
+              itemList.innerHTML = "";
+              const invRef = doc(db, "inventory", id);
+              const invSnap = await getDoc(invRef);
+              const ordersItem = invSnap.data().menuItems || [];
+              ordersItem.sort((a, b) => a.title.localeCompare(b.title));
+              ordersItem.forEach((item, index) => {
+                  const mainDiv = document.createElement("div");
+                  mainDiv.className = "iNVtemDiv";
+                  itemList.appendChild(mainDiv);
+
+                  const title = document.createElement("p");
+                  title.textContent = item.title + " (" + item.amount + ")";
+                  mainDiv.appendChild(title);
+
+                  const remove = document.createElement("button");
+                  remove.textContent = "-";
+                  mainDiv.appendChild(remove);
+
+                  remove.addEventListener("click", async () => {
+                  const invRef = doc(db, "inventory", id);
+                  const invSnap = await getDoc(invRef);
+
+                  let items = invSnap.data().menuItems || [];
+
+                  items.splice(index, 1);
+
+                  await updateDoc(invRef, {
+                      menuItems: items
+                  });
+
+                  inventoryMenu(id);
+              });
+              });
+          }
+
+          addMenu.addEventListener("click", async () => {
+          const selectedId = menuDrop.value;
+          const selectedTitle = menuDrop.options[menuDrop.selectedIndex].textContent;
+          const selectedAmount = parseInt(menuAmount.value) || 1;
+
+          try {
+              const invSnap = await getDoc(amountRef);
+
+              let menuItems = [];
+              if (invSnap.exists()) {
+                  menuItems = invSnap.data().menuItems || [];
+              }
+
+              menuItems.push({
+                  id: selectedId,
+                  title: selectedTitle,
+                  amount: selectedAmount
+              });
+
+              await updateDoc(amountRef, {
+                  menuItems: menuItems
+              });
+              inventoryMenu(item.id);
+              
+              } catch (error) {
+                  console.error(error);
+              }
+            menuAmount.value = "";
+          });
+          rightDiv.appendChild(itemList);
+          inventoryMenu(item.id);
+    }
   };
 
   async function viewMenu(){
@@ -149,7 +327,7 @@ onAuthStateChanged(auth, async (user) => {
         InvSnapshot.forEach((staffdoc) => {
           ordersInv.push({ id: staffdoc.id, ...staffdoc.data() });
         });
-        ordersInv.sort((a, b) => b.createdAt - a.createdAt);
+        ordersInv.sort((a, b) => a.title.localeCompare(b.title));
         for (const item of ordersInv) {
           const mainDiv = document.createElement("div");
           mainDiv.className = "invDiv"
@@ -158,31 +336,28 @@ onAuthStateChanged(auth, async (user) => {
           const title = document.createElement("p");
           title.textContent = item.title;
           mainDiv.appendChild(title);
-      }
+
+          const type = document.createElement("p");
+          type.textContent = item.type;
+          mainDiv.appendChild(type);
+
+          const price = document.createElement("p");
+          price.textContent = "$" + item.price;
+          mainDiv.appendChild(price);
+
+          const removeButton = document.createElement("button");
+          removeButton.textContent = "-";
+          mainDiv.appendChild(removeButton);
+
+          removeButton.addEventListener("click", async () => {
+            if (confirm("Delete " + item.title + "?")) {
+                try {
+                    await deleteDoc(doc(db, "menu", item.id));
+                    viewMenu();
+                } catch (error) {
+                    console.error("Error deleting item:", error);
+                };
+            };
+          });
+      };
   };
-
-   document.addEventListener("DOMContentLoaded", () => {
-    const mealForm = document.getElementById("addMeal");
-    mealForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const title = document.getElementById("mealTitle").value;
-    const type = document.getElementById("mealType").value;
-    const img = document.getElementById("mealImg").value;
-    const price = parseFloat(document.getElementById("mealPrice").value);
-
-    try {
-        const newDoc = await addDoc(collection(db, "menu"), {
-            title: title,
-            type: type,
-            picture: img,
-            price: price,
-            createdAt: serverTimestamp()
-        });
-        alert("Meal added to menu");
-        window.location.reload();
-    } catch (err) {
-        console.error(err);
-    }
-});
-  });

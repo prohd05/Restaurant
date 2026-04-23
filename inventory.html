@@ -22,7 +22,8 @@
             <a href="home.html" class="sideHome"> Home </a>
             <a href="orders.html" class="sideOrders"> Orders </a>
             <a href="inventory.html" class="sideInventory"> Inventory </a>
-            <a href="management.html" class="sideManagement"> Management </a>
+            <a href="timeclock.html" class="sideShift"> Shift Managment </a>
+            <a href="management.html" class="sideManagement"> Managment </a>
             <a href="accounting.html" class="sideAccounting"> Accounting </a>
         </div>
         <div class="mainPages">
@@ -33,6 +34,7 @@
                     <input id="ogAmount" type="number" placeholder="Amount" required>
                     <input id="ogLow" type="number" placeholder="Low Threshold" required>
                     <input id="ogType" placeholder="Measurement" required>
+                    <input id="ogPrice" type="number" placeholder="Price per Measurement" required>
                     <button id="ogAdd" type="submit"> + </button>
                 </form>
             </div>
@@ -43,8 +45,8 @@
 
                 <select id="mealType">
                     <option>Main</option>
-                    <option>Side</option>
-                    <option>Drink</option>
+                    <option>Appetizer</option>
+                    <option>Beverage</option>
                     <option>Dessert</option>
                 </select><br>
 
