@@ -32,7 +32,7 @@ onAuthStateChanged(auth, async (user) => {
             ordersMenu.push({ id: staffdoc.id, ...staffdoc.data() });
         });
         ordersMenu.sort((a, b) => b.createdAt - a.createdAt);
-        for (const order of ordersMenu) {
+        for (const order of ordersMenu) {   
             if(order.status == "pending"){
                 const mainDiv = document.createElement("div");
                 mainDiv.className = "orderDiv";

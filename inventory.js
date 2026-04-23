@@ -94,7 +94,7 @@ onAuthStateChanged(auth, async (user) => {
         const newDoc = await addDoc(collection(db, "menu"), {
             title: title,
             type: type,
-            picture: "assets/menu/",
+            picture: "assets/menu/" + img + ".png",
             price: price,
             createdAt: serverTimestamp()
         });

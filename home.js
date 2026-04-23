@@ -39,7 +39,7 @@ import { updateDoc, deleteDoc, setDoc, collection, doc, addDoc, getDoc ,getDocs,
         items.push({
             itemID: item.id,
             title: item.title,
-            price: item.price,
+            price: parseInt(item.price),
             qty: 1
         });
     await setDoc(ref, { items }, { merge: true });
@@ -117,7 +117,7 @@ async function getCart(user) {
     });
 
     const tax = subtotal * 0.06625;
-    const total = subtotal + tax;
+    const total = parseInt(subtotal + tax);
 
     try {
         await addDoc(collection(db, "orders"), {
@@ -153,7 +153,7 @@ async function getCart(user) {
         stDiv.id = "Appetizers";
         stDiv.className="sectionArea";
         list.append(stDiv);
-        await displayFood("starter", user, stDiv);
+        await displayFood("Appetizer", user, stDiv);
 
         const mainT = document.createElement("h2");
         mainT.textContent = "Main Meals";
@@ -189,7 +189,7 @@ async function getCart(user) {
         bDiv.id = "Beverages";
         bDiv.className="sectionArea";
         list.append(bDiv);
-        await displayFood("Drink", user, bDiv);
+        await displayFood("Beverage", user, bDiv);
 
         const dessT = document.createElement("h2");
         dessT.textContent = "Desserts";
@@ -221,22 +221,30 @@ async function getCart(user) {
             el.style.visibility = "hidden";
         });*/
 
+        document.getElementById("homeTitle").style.visibility = "hidden";
+
         const items = await getCart(user);
         const TAX_RATE = 0.06625;
         let subtotal = 0;
         items.forEach(item => {
             const mainDiv = document.createElement("div");
+            mainDiv.className = "cartDiv"
 
-            const name = document.createElement("p");
-            name.textContent = `x${item.qty} ${item.title}`;
+            const name = document.createElement("h2");
+            name.textContent = item.title;
+            name.style.color = "white";
+            name.className = "cartTitle"
 
-            const price = document.createElement("p");
+            const price = document.createElement("h2");
             const itemTotal = item.price * item.qty;
             price.textContent = "$" + itemTotal;
+            price.style.color = "white";
             subtotal += itemTotal;
+            price.className = "cartPrice"
 
             const removeBtn = document.createElement("button");
             removeBtn.textContent = "-";
+            removeBtn.className = "cartRemove"
             removeBtn.addEventListener("click", async () => {
                 await removeFromCart(user, item.itemID);
             });
@@ -283,6 +291,7 @@ async function getCart(user) {
         
       // View Menu
       else{
+      document.getElementById("homeTitle").style.visibility = "visible";
       const orderMenu = [];
       const menuSnapshot = await getDocs(collection(db, "menu"));
       menuSnapshot.forEach((allItems) => {
@@ -302,12 +311,13 @@ async function getCart(user) {
 
           const picture = document.createElement("img");
           picture.src = item.picture;
-          picture.className = "menuPic"
+          picture.className = "menuPic";
           //picture.width = "100";
           //picture.height = "100";
           mainDiv.appendChild(picture);
 
           const bottom = document.createElement("div")
+          bottom.className = "bttm"
           mainDiv.appendChild(bottom);
 
           const addItem = document.createElement("button");
@@ -315,7 +325,7 @@ async function getCart(user) {
           addItem.className = "addItem"
           bottom.appendChild(addItem);
           
-          const price = document.createElement("p");
+          const price = document.createElement("h4");
           price.textContent = "$" + item.price;
           price.className = "menuPrice"
           bottom.appendChild(price);
