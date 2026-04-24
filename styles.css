@@ -8,10 +8,6 @@
     background-color: green;
 }
 
-.iNVtemDiv{
-    background-color: red;
-}
-
 #SIpage{
     display: flex;
     flex-direction: column;
@@ -118,7 +114,7 @@ body{
         font-weight: 100;
     }
 
-    h4, .orderul, .complete{
+    h4, .heading4, .orderul, .complete, #addIng input, #addMeal input, #addMeal select{
         font-family: "Pixelify Sans";
         font-size: 28px;
         font-weight: bold;
@@ -287,6 +283,7 @@ body{
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-bottom: 3%;
     }
 
     .cartTitle{
@@ -307,12 +304,47 @@ body{
         font-weight: 900;
     }
 
-    #typeBtt{
+    #typeBtt, #checkoutBtn{
         background-color: #F65647;
         border-radius: 32px;
         width: 292px;
         margin-left: 15px;
-        border: none;
+        border: solid #1A5EEF 2px;
+    }
+
+    #cartSummary{
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    .checkoutButton{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    #sepDiv{ 
+        margin-top: 5%;
+        margin-bottom: 5%;
+        width: 100%;
+    }
+
+    .sumSep{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .sumSep p, .sumSep h4{
+        margin: 0px;
+        color:white;
+    }
+
+    .sumL{
+        text-decoration: underline;
     }
 
     .sectionArea{
@@ -509,6 +541,60 @@ body{
         border: solid black 1px;
         background-color: #50C878;
     }
+
+    /* Inventory */
+    #addIng, #addMeal{
+        display: flex;
+        justify-content: start;
+    }
+
+    #addIng input, #addMeal input, #addMeal select{
+        background-color: #FFD16D;
+        border: none;
+        border-radius: 10px;
+        margin-right: 5px;
+    }
+
+    #addIng button{
+        background-color: #FFAE00;
+        border: none;
+        border-radius: 10px;
+        width: 38px;
+        font-family: "Pixelify Sans";
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+    #addMeal button{
+        background-color: #FFAE00;
+        border: none;
+        border-radius: 10px;
+        height: 38px;
+    }
+
+    #viewInventory, #viewMenu{
+        background-color: #FFD16D;
+        border: none;
+        border-radius: 10px;
+        padding: 2%; 
+
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .invDiv{
+        width: fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;  
+        height: 300px;  
+    }
+
+    .rightInv{
+        background-color: red;
+        height: 100%;
+        overflow-y: auto;
+    }
 }
 
 /* Tablet Media Query */
@@ -526,7 +612,7 @@ body{
         font-weight: 100;
     }
 
-    h4, .orderul, .complete{
+    h4, .heading4, .orderul, .complete, #addIng input, #addMeal input, #addMeal select{
         font-family: "Pixelify Sans";
         font-size: 24px;
         font-weight: bold;
@@ -694,6 +780,7 @@ body{
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-bottom: 3%;
     }
 
     .cartTitle{
@@ -715,20 +802,47 @@ body{
     }
 
 
-    #typeBtt{
+    #typeBtt, #checkoutBtn{
         background-color: #F65647;
         border-radius: 32px;
         width: 292px;
         margin-left: 15px;
-        border: none;
+        border: solid #1A5EEF 2px;
     }
 
-    #typeBtt{
-        background-color: #F65647;
-        border-radius: 32px;
-        width: 292px;
-        margin-left: 15px;
-        border: none;
+    #cartSummary{
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    .checkoutButton{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    #sepDiv{ 
+        margin-top: 5%;
+        margin-bottom: 5%;
+        width: 100%;
+    }
+
+    .sumSep{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .sumSep p, .sumSep h4{
+        margin: 0px;
+        color:white;
+    }
+
+    .sumL{
+        text-decoration: underline;
     }
     
     .sectionArea{
@@ -917,6 +1031,40 @@ body{
         border: solid black 1px;
         background-color: #50C878;
     }
+
+    /* Inventory */
+    #addIng, #addMeal{
+        display: grid;
+        grid-template-columns:  repeat(2, minmax(0, 1fr));
+        row-gap: 15%;
+        margin-bottom: 10%;
+    }
+
+    #addIng input, #addMeal input, #addMeal select{
+        background-color: #FFD16D;
+        border: none;
+        border-radius: 10px;
+        margin-right: 5px;
+    }
+
+    #addIng button{
+        background-color: #FFAE00;
+        border: none;
+        border-radius: 10px;
+        width: 38px;
+        font-family: "Pixelify Sans";
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+    #addMeal button{
+        background-color: #FFAE00;
+        border: none;
+        border-radius: 10px;
+        height: 38px;
+    }
+
+    
 }
 
 /* Mobile Media Query */
@@ -934,7 +1082,7 @@ body{
         font-weight: 100;
     }
 
-    h4, .orderul, .complete{
+    h4, .heading4, .orderul, .complete, #addIng input, #addMeal input, #addMeal select{
         font-family: "Pixelify Sans";
         font-size: 18px;
         font-weight: bold;
@@ -1078,13 +1226,13 @@ body{
         justify-content: start;
         align-items: end;
         height: 212px;
-        margin-top: 10%;
+        margin-top: 20%;
         background-image: url("assets/footer.png");
     }
 
     .footerSonic{
         height: 222px;
-        margin-bottom: 50px;
+        margin-bottom: 30px;
     }
 
     /* Menu */
@@ -1103,6 +1251,7 @@ body{
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-bottom: 3%;
     }
 
     .cartTitle{
@@ -1123,12 +1272,47 @@ body{
         font-weight: 900;
     }
 
-    #typeBtt{
+    #typeBtt, #checkoutBtn{
         background-color: #F65647;
         border-radius: 32px;
         width: 185px;
         margin-left: 15px;
-        border: none;
+        border: solid #1A5EEF 2px;
+    }
+
+    #cartSummary{
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    .checkoutButton{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    #sepDiv{ 
+        margin-top: 5%;
+        margin-bottom: 5%;
+        width: 100%;
+    }
+
+    .sumSep{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .sumSep p, .sumSep h4{
+        margin: 0px;
+        color:white;
+    }
+
+    .sumL{
+        text-decoration: underline;
     }
 
     .sectionArea{    
@@ -1322,5 +1506,38 @@ body{
         border-bottom-right-radius: 10px;
         border: solid black 1px;
         background-color: #50C878;
+    }
+
+    /* Inventory */
+    #addIng, #addMeal{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #addIng input, #addMeal input, #addMeal select{
+        margin-bottom: 10px;
+        background-color: #FFD16D;
+        border: none;
+        border-radius: 10px;
+        height: 38px;
+    }
+
+    #addIng button{
+        background-color: #FFAE00;
+        border: none;
+        border-radius: 10px;
+        width: 38px;
+        font-family: "Pixelify Sans";
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+    #addMeal button{
+        background-color: #FFAE00;
+        border: none;
+        border-radius: 10px;
+        height: 38px;
     }
 }

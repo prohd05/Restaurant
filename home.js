@@ -39,7 +39,7 @@ import { updateDoc, deleteDoc, setDoc, collection, doc, addDoc, getDoc ,getDocs,
         items.push({
             itemID: item.id,
             title: item.title,
-            price: parseInt(item.price),
+            price: parseFloat(item.price),
             qty: 1
         });
     await setDoc(ref, { items }, { merge: true });
@@ -99,16 +99,10 @@ async function getCart(user) {
   async function placeOrder(user) {
     const cartRef = doc(db, "carts", user.uid);
     const cartSnap = await getDoc(cartRef);
-    if (!cartSnap.exists()) {
-        alert("Cart is empty");
-        return;
-    }
-
     const items = cartSnap.data().items || [];
-
-    if (items.length === 0) {
+    if (!cartSnap.exists() || items.length === 0) {
         alert("Cart is empty");
-        return;
+        window.location.reload();
     }
 
     let subtotal = 0;
@@ -243,7 +237,9 @@ async function getCart(user) {
             price.className = "cartPrice"
 
             const removeBtn = document.createElement("button");
-            removeBtn.textContent = "-";
+            const removeIcon = document.createElement("img");
+            removeIcon.src = "assets/line.png";
+            removeBtn.appendChild(removeIcon);
             removeBtn.className = "cartRemove"
             removeBtn.addEventListener("click", async () => {
                 await removeFromCart(user, item.itemID);
@@ -259,32 +255,68 @@ async function getCart(user) {
         const summary = document.createElement("div");
         summary.id = "cartSummary";
 
-        const subText = document.createElement("p");
-        subText.textContent = `Subtotal: $${subtotal.toFixed(2)}`;
+        const subDiv = document.createElement("div");
+        subDiv.className = "sumSep";
+        summary.appendChild(subDiv);
 
-        const taxText = document.createElement("p");
-        taxText.textContent = `Tax: $${tax.toFixed(2)}`;
+        const subL = document.createElement("h4");
+        subL.textContent = "Subtotal:";
+        subL.className = "sumL";
+        subDiv.appendChild(subL);
 
-        const totalText = document.createElement("p");
-        totalText.textContent = `Total: $${total.toFixed(2)}`;
+        const subR = document.createElement("p");
+        subR.textContent = "$" + subtotal.toFixed(2);
+        subDiv.appendChild(subR);
 
-        summary.appendChild(subText);
-        summary.appendChild(taxText);
-        summary.appendChild(totalText);
+        const taxDiv = document.createElement("div");
+        taxDiv.className = "sumSep";
+        summary.appendChild(taxDiv);
+
+        const taxL = document.createElement("h4");
+        taxL.textContent = "Tax:";
+        taxL.className = "sumL";
+        taxDiv.appendChild(taxL);
+
+        const taxR = document.createElement("p");
+        taxR.textContent = "$" + tax.toFixed(2);
+        taxDiv.appendChild(taxR);
+
+        const sepDiv = document.createElement("img");
+        sepDiv.src = "assets/sepLine.png";
+        sepDiv.id = "sepDiv";
+        summary.appendChild(sepDiv);
+
+        const totalDiv = document.createElement("div");
+        totalDiv.className = "sumSep";
+        summary.appendChild(totalDiv);
+
+        const totalL = document.createElement("h4");
+        totalL.textContent = "Total:";
+        totalL.className = "sumL";
+        totalDiv.appendChild(totalL);
+
+        const totalR = document.createElement("p");
+        totalR.textContent = "$" + total.toFixed(2);
+        totalDiv.appendChild(totalR);
 
         list.appendChild(summary);
+
+        const checkB = document.createElement("div");
+        checkB.className = "checkoutButton";
+        summary.appendChild(checkB);
         
         const checkoutBtn = document.createElement("button");
         checkoutBtn.textContent = "Place Order";
+        checkoutBtn.className = "heading2"
         checkoutBtn.id = "checkoutBtn";
-        list.appendChild(checkoutBtn);
+        checkB.appendChild(checkoutBtn);
         checkoutBtn.addEventListener("click", async () => {
           checkoutBtn.disabled = true;
           checkoutBtn.textContent = "Placing Order...";
           try {
               await placeOrder(user);
           } catch{
-            alert("Error: " + error.message);
+            alert("An error has occurred.");
           }
       });
         }
@@ -316,14 +348,14 @@ async function getCart(user) {
           //picture.height = "100";
           mainDiv.appendChild(picture);
 
-          const bottom = document.createElement("div")
-          bottom.className = "bttm"
+          const bottom = document.createElement("div");
+          bottom.className = "bttm";
           mainDiv.appendChild(bottom);
 
           const addItem = document.createElement("button");
           addItem.textContent = "Add Item";
           addItem.className = "addItem"
-          bottom.appendChild(addItem);
+          mainDiv.appendChild(addItem);
           
           const price = document.createElement("h4");
           price.textContent = "$" + item.price;

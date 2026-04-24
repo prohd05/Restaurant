@@ -221,27 +221,6 @@ onAuthStateChanged(auth, async (user) => {
           menuAmount.type = "number";
           rightDiv.appendChild(menuAmount); 
 
-          const menuSnapshot = await getDocs(collection(db, "menu"));
-
-          const menuItems = [];
-
-          menuSnapshot.forEach((docSnap) => {
-              menuItems.push({
-                  id: docSnap.id,
-                  ...docSnap.data()
-              });
-          });
-
-          menuItems.sort((a, b) => a.title.localeCompare(b.title));
-
-          menuItems.forEach((menuItem) => {
-              const option = document.createElement("option");
-              option.value = menuItem.id;
-              option.textContent = menuItem.title;
-
-              menuDrop.appendChild(option);
-          });
-
           const addMenu = document.createElement("button");
           addMenu.textContent = "+";
           rightDiv.appendChild(addMenu); 
@@ -249,41 +228,58 @@ onAuthStateChanged(auth, async (user) => {
           const itemList = document.createElement("div");
           itemList.className = "itemList";
 
+          const menuSnapshot = await getDocs(collection(db, "menu"));
+          const menuItems = [];
+          menuSnapshot.forEach((docSnap) => {
+            menuItems.push({ id: docSnap.id, ...docSnap.data() });
+          });
+          menuItems.sort((a, b) => a.title.localeCompare(b.title));
+
           async function inventoryMenu(id) {
-              itemList.innerHTML = "";
-              const invRef = doc(db, "inventory", id);
-              const invSnap = await getDoc(invRef);
-              const ordersItem = invSnap.data().menuItems || [];
-              ordersItem.sort((a, b) => a.title.localeCompare(b.title));
-              ordersItem.forEach((item, index) => {
-                  const mainDiv = document.createElement("div");
-                  mainDiv.className = "iNVtemDiv";
-                  itemList.appendChild(mainDiv);
+            itemList.innerHTML = "";
+            menuDrop.innerHTML = "";
 
-                  const title = document.createElement("p");
-                  title.textContent = item.title + " (" + item.amount + ")";
-                  mainDiv.appendChild(title);
+            const invRef = doc(db, "inventory", id);
+            const invSnap = await getDoc(invRef);
 
-                  const remove = document.createElement("button");
-                  remove.textContent = "-";
-                  mainDiv.appendChild(remove);
+            const ordersItem = invSnap.data().menuItems || [];
+            ordersItem.sort((a, b) => a.title.localeCompare(b.title));
 
-                  remove.addEventListener("click", async () => {
-                  const invRef = doc(db, "inventory", id);
-                  const invSnap = await getDoc(invRef);
+            const existingIds = ordersItem.map(item => item.id);
+            menuItems
+                .filter(menuItem => !existingIds.includes(menuItem.id))
+                .forEach((menuItem) => {
+                    const option = document.createElement("option");
+                    option.value = menuItem.id;
+                    option.textContent = menuItem.title;
+                    menuDrop.appendChild(option);
+                });
 
-                  let items = invSnap.data().menuItems || [];
+            ordersItem.forEach((item, index) => {
+                const mainDiv = document.createElement("div");
+                mainDiv.className = "iNVtemDiv";
+                itemList.appendChild(mainDiv);
 
-                  items.splice(index, 1);
+                const title = document.createElement("p");
+                title.textContent = item.title + " (" + item.amount + ")";
+                mainDiv.appendChild(title);
 
-                  await updateDoc(invRef, {
-                      menuItems: items
-                  });
+                const remove = document.createElement("button");
+                remove.textContent = "-";
+                mainDiv.appendChild(remove);
 
-                  inventoryMenu(id);
-              });
-              });
-          }
+                remove.addEventListener("click", async () => {
+                    let items = invSnap.data().menuItems || [];
+                    items.splice(index, 1);
+
+                    await updateDoc(invRef, {
+                        menuItems: items
+                    });
+
+                    inventoryMenu(id);
+                });
+            });
+        }
 
           addMenu.addEventListener("click", async () => {
           const selectedId = menuDrop.value;

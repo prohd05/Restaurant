@@ -28,7 +28,7 @@
         </div>
         <div class="mainPages">
             <div id="addIngTotal">
-                <p>Add Ingredients</p>
+                <h4>Add Ingredients</h4>
                 <form id="addIng">
                     <input id="ogName" placeholder="Item" required>
                     <input id="ogAmount" type="number" placeholder="Amount" required>
@@ -38,30 +38,31 @@
                     <button id="ogAdd" type="submit"> + </button>
                 </form>
             </div>
+            <div>
+                <h4>Add Meal</h4>
+                <form id="addMeal">
+                    <input id="mealTitle" placeholder="Title" required>
+                    <select id="mealType" class="heading4">
+                        <option>Main</option>
+                        <option>Appetizer</option>
+                        <option>Beverage</option>
+                        <option>Dessert</option>
+                    </select>
 
-            <form id="addMeal">
-                <p>Add Meal</p>
-                <input id="mealTitle" placeholder="Title" required><br>
-
-                <select id="mealType">
-                    <option>Main</option>
-                    <option>Appetizer</option>
-                    <option>Beverage</option>
-                    <option>Dessert</option>
-                </select><br>
-
-                <input id="mealImg" placeholder="Image Link"><br>
-                <input id="mealPrice" placeholder="Price" required><br>
-                <button id="mealSub" type="submit">Add Meal</button>
-            </form> 
+                    <input id="mealImg" placeholder="Image Link">
+                    <input id="mealPrice" placeholder="Price" required>
+                    <button id="mealSub" class="heading4" type="submit">Add Meal</button>
+                </form> 
+            </div>
+            
             <hr>
             <div id="viewArea">
-                <p> Inventory</p>
+                <h4> Inventory</h4>
                 <div id="viewInventory">
 
                 </div>
                 <hr>
-                <p> Menu </p>
+                <h4> Menu </h4>
                 <div id="viewMenu">
 
                 </div>
