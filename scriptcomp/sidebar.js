@@ -60,21 +60,21 @@ onAuthStateChanged(auth, async (user) => {
     
     if(roleRef.data().waiter){
         iSelect.forEach(el => {
-            el.style.visibility = "hidden";
+            el.remove();
         });
         mSelect.forEach(el => {
-            el.style.visibility = "hidden";
+            el.remove();
         });
         aSelect.forEach(el => {
-            el.style.visibility = "hidden";
+            el.remove();
         });
     }
     if(roleRef.data().chef ){
         mSelect.forEach(el => {
-            el.style.visibility = "hidden";
+            el.remove();
         });
         aSelect.forEach(el => {
-            el.style.visibility = "hidden";
+            el.remove();
         });
     }
   }

@@ -23,6 +23,7 @@ onAuthStateChanged(auth, async (user) => {
         else if(userRef.data().chef){
           document.getElementById("addIngTotal").remove();
           document.getElementById("addMenuTotal").remove();
+          document.getElementById("inHR").remove();
         }
         else if(userRef.data().waiter){
           window.location.href = "home.html";
