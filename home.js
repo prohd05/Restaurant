@@ -111,13 +111,14 @@ async function getCart(user) {
     });
 
     const tax = subtotal * 0.06625;
-    const total = parseInt(subtotal + tax);
+    const total = parseFloat(subtotal + tax);
 
     try {
         await addDoc(collection(db, "orders"), {
             userId: user.uid,
             user: user.displayName,
             items: items,
+            subTotal: subtotal.toFixed(2),
             total: total.toFixed(2),
             status: "pending",
             createdAt: serverTimestamp()
@@ -218,7 +219,7 @@ async function getCart(user) {
         document.getElementById("homeTitle").style.visibility = "hidden";
 
         const items = await getCart(user);
-        const TAX_RATE = 0.06625;
+        const TAX_RATE = parseFloat(0.06625).toFixed(2);
         let subtotal = 0;
         items.forEach(item => {
             const mainDiv = document.createElement("div");
@@ -250,7 +251,7 @@ async function getCart(user) {
             mainDiv.appendChild(removeBtn);
             list.appendChild(mainDiv);
         });
-        const tax = subtotal * TAX_RATE;
+        const tax = parseFloat(subtotal * TAX_RATE);
         const total = subtotal + tax;
         const summary = document.createElement("div");
         summary.id = "cartSummary";

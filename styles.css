@@ -4,10 +4,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Notable&family=Pixelify+Sans:wght@400..700&family=Rubik:ital,wght@0,300..900;1,300..900&family=Tac+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Happy+Monkey&family=Notable&family=Pixelify+Sans:wght@400..700&family=Rubik:ital,wght@0,300..900;1,300..900&family=Tac+One&display=swap');
 
-.invDiv{
-    background-color: green;
-}
-
 #SIpage{
     display: flex;
     flex-direction: column;
@@ -572,28 +568,143 @@ body{
         height: 38px;
     }
 
-    #viewInventory, #viewMenu{
+    #viewInventory{
         background-color: #FFD16D;
         border: none;
         border-radius: 10px;
         padding: 2%; 
-
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        place-items: center;
     }
 
     .invDiv{
         width: fit-content;
         display: flex;
         justify-content: center;
-        align-items: center;  
         height: 300px;  
+        border: none;
+        margin-bottom: 10%;
+    }
+
+    .leftInv{
+        height: 100%;
+        padding: 10px;
+        background-color: #6EADFF;
+        border: none;
+        border-radius: 10px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    .leftInv h4{
+        margin-top: 0px;
+        margin-bottom: 10px;
+    }
+
+    .leftInv input, .rightInv input{
+        background-color: #FFD16D;
+        border: none;
+        font-family: "Pixelify Sans";
+        font-size: 20px;
+        font-weight: bold;
+        width: 40%;
+    }
+
+    .rightInv select{
+        display: block;
+        background-color: #FFD16D;
+        border: none;
+        font-family: "Pixelify Sans";
+        font-size: 20px;
+        font-weight: bold;
+        overflow-x:auto;
+        text-overflow: ellipsis;
+        width: fit-content;
+        margin-bottom: 5px;
+    }
+
+    .leftInv button, .rightInv button, .menInvDiv button {
+        background-color: transparent;
+        border: none;
+        font-family: "Pixelify Sans";
+        font-size: 20px;
+        font-weight: bold;
     }
 
     .rightInv{
-        background-color: red;
+        border-left: 3px solid #FFD16D;
+        padding: 10px;
         height: 100%;
         overflow-y: auto;
+        background-color: #3C91FF;
+        border: none;
+        border-radius: 10px;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+
+    .rightInv::-webkit-scrollbar-thumb{
+        background: #002FA4;
+        border: none;
+        border-radius: 5px;
+    }
+    
+    .rightInv::-webkit-scrollbar-thumb:hover{
+        background: #006eff;
+        border: none;
+        border-radius: 5px;
+    }    
+
+    .iNVtemDiv{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+    }
+
+    .iNVtemDiv h4{
+        margin: 0px;
+        margin-top: 10px;
+    }
+    
+    .iNVtemDiv button{
+        color:red;
+        margin: 0px;
+        margin-top: 10px;
+    }
+
+    #viewMenu{
+        background-color: #FFD16D;
+        border: none;
+        border-radius: 10px;
+        padding: 2%; 
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        place-items: center;
+    }
+
+    .menInvDiv{
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 200px; 
+        min-width: 60%;
+        border: none;
+        border-radius: 10px;
+        margin-bottom: 10%;
+        background-color: #6EADFF;
+        padding: 10px;
+    }
+
+    .menInvDiv h4{
+        margin: 5px;
+    }
+
+    .menInvDiv button{
+        color:red;
+        margin: 0px;
     }
 }
 
@@ -1064,7 +1175,145 @@ body{
         height: 38px;
     }
 
+    #viewInventory{
+        background-color: #FFD16D;
+        border: none;
+        border-radius: 10px;
+        padding: 2%; 
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        place-items: center;
+        column-gap: 10px;
+    }
+
+    .invDiv{
+        width: fit-content;
+        display: flex;
+        justify-content: center;
+        height: 300px;  
+        border: none;
+        margin-bottom: 20%;
+    }
+
+    .leftInv{
+        height: 100%;
+        padding: 10px;
+        background-color: #6EADFF;
+        border: none;
+        border-radius: 10px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    .leftInv h4{
+        margin-top: 0px;
+        margin-bottom: 10px;
+    }
+
+    .leftInv input, .rightInv input{
+        background-color: #FFD16D;
+        border: none;
+        font-family: "Pixelify Sans";
+        font-size: 20px;
+        font-weight: bold;
+        width: 50%;
+    }
+
+    .rightInv select{
+        display: block;
+        background-color: #FFD16D;
+        border: none;
+        font-family: "Pixelify Sans";
+        font-size: 20px;
+        font-weight: bold;
+        width: 90%;
+        overflow-x:auto;
+        text-overflow: ellipsis;
+        margin-bottom: 5px;
+    }
+
+    .leftInv button, .rightInv button, .menInvDiv button {
+        background-color: transparent;
+        border: none;
+        font-family: "Pixelify Sans";
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .rightInv{
+        border-left: 3px solid #FFD16D;
+        padding: 10px;
+        height: 100%;
+        overflow-y: auto;
+        background-color: #3C91FF;
+        border: none;
+        border-radius: 10px;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+
+    .rightInv::-webkit-scrollbar-thumb{
+        background: #002FA4;
+        border: none;
+        border-radius: 5px;
+    }
     
+    .rightInv::-webkit-scrollbar-thumb:hover{
+        background: #006eff;
+        border: none;
+        border-radius: 5px;
+    }    
+
+    .iNVtemDiv{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+    }
+
+    .iNVtemDiv h4{
+        margin: 0px;
+        margin-top: 10px;
+    }
+    
+    .iNVtemDiv button{
+        color:red;
+        margin: 0px;
+        margin-top: 10px;
+    }
+
+    #viewMenu{
+        background-color: #FFD16D;
+        border: none;
+        border-radius: 10px;
+        padding: 2%; 
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        place-items: center;
+        column-gap: 10px;
+    }
+
+    .menInvDiv{
+        min-width: 90%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 200px; 
+        border: none;
+        border-radius: 10px;
+        margin-bottom: 10%;
+        background-color: #6EADFF;
+        padding: 10px;
+    }
+
+    .menInvDiv h4{
+        margin: 5px;
+    }
+
+    .menInvDiv button{
+        color:red;
+        margin: 0px;
+    }
 }
 
 /* Mobile Media Query */
@@ -1539,5 +1788,146 @@ body{
         border: none;
         border-radius: 10px;
         height: 38px;
+    }
+
+    #viewInventory{
+        background-color: #FFD16D;
+        border: none;
+        border-radius: 10px;
+        padding: 2%; 
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        place-items: center;
+        column-gap: 10px;
+    }
+
+    .invDiv{
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 350px;  
+        border: none;
+        margin-bottom: 20%;
+    }
+
+    .leftInv{
+        height: 70%;
+        padding: 10px;
+        background-color: #6EADFF;
+        border: none;
+        border-radius: 10px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    .leftInv h4{
+        margin-top: 0px;
+        margin-bottom: 10px;
+    }
+
+    .leftInv input, .rightInv input{
+        background-color: #FFD16D;
+        border: none;
+        font-family: "Pixelify Sans";
+        font-size: 20px;
+        font-weight: bold;
+        width: 50%;
+    }
+
+    .rightInv select{
+        display: block;
+        background-color: #FFD16D;
+        border: none;
+        font-family: "Pixelify Sans";
+        font-size: 20px;
+        font-weight: bold;
+        width: 90%;
+        overflow-x:auto;
+        text-overflow: ellipsis;
+        margin-bottom: 5px;
+    }
+
+    .leftInv button, .rightInv button, .menInvDiv button {
+        background-color: transparent;
+        border: none;
+        font-family: "Pixelify Sans";
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .rightInv{
+        border-left: 3px solid #FFD16D;
+        padding: 10px;
+        height: 100%;
+        overflow-y: auto;
+        background-color: #3C91FF;
+        border: none;
+        border-radius: 10px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+
+    .rightInv::-webkit-scrollbar-thumb{
+        background: #002FA4;
+        border: none;
+        border-radius: 5px;
+    }
+    
+    .rightInv::-webkit-scrollbar-thumb:hover{
+        background: #006eff;
+        border: none;
+        border-radius: 5px;
+    }    
+
+    .iNVtemDiv{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+    }
+
+    .iNVtemDiv h4{
+        margin: 0px;
+        margin-top: 10px;
+    }
+    
+    .iNVtemDiv button{
+        color:red;
+        margin: 0px;
+        margin-top: 10px;
+    }
+
+    #viewMenu{
+        background-color: #FFD16D;
+        border: none;
+        border-radius: 10px;
+        padding: 2%; 
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        place-items: center;
+        column-gap: 10px;
+    }
+
+    .menInvDiv{
+        min-width: 80%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 200px; 
+        border: none;
+        border-radius: 10px;
+        margin-bottom: 10%;
+        background-color: #6EADFF;
+        padding: 10px;
+    }
+
+    .menInvDiv h4{
+        margin: 5px;
+    }
+
+    .menInvDiv button{
+        color:red;
+        margin: 0px;
     }
 }

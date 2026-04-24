@@ -15,21 +15,21 @@ onAuthStateChanged(auth, async (user) => {
         const userRef = await getDoc(doc(db, "roles", user.uid));
   
         if(userRef.data().owner){
-          //role.textContent ="Role: Owner";
+          
         }
         else if(userRef.data().management){
-          //role.textContent ="Role: Management";
+          
         }
         else if(userRef.data().chef){
-          //role.textContent ="Role: Chef";
+          document.getElementById("addIngTotal").remove();
+          document.getElementById("addMenuTotal").remove();
         }
         else if(userRef.data().waiter){
-          //role.textContent ="Role: Waiter";
           window.location.href = "home.html";
         }
         else{
             window.location.href = "home.html";
-          //role.textContent ="Role: Customer";
+
         }
   
       } catch (error) {
@@ -126,15 +126,15 @@ onAuthStateChanged(auth, async (user) => {
           leftDiv.className = "leftInv"
           mainDiv.appendChild(leftDiv);
 
-          const name = document.createElement("p");
+          const name = document.createElement("h4");
           name.textContent = "Item: " + item.name;
           leftDiv.appendChild(name);
 
-          const price = document.createElement("p");
+          const price = document.createElement("h4");
           price.textContent = "Price: $" + item.pricePer + " per " + item.measurement;
           leftDiv.appendChild(price);
 
-          const low = document.createElement("p");
+          const low = document.createElement("h4");
           low.textContent = "LOW STOCK";
           low.style.color = "red";
           leftDiv.appendChild(low);
@@ -150,7 +150,7 @@ onAuthStateChanged(auth, async (user) => {
           lowUpdate();
 
           const amountRef = doc(db, "inventory", item.id);
-          const amount = document.createElement("p");
+          const amount = document.createElement("h4");
           amount.textContent = "Amount: " + item.amount + " " + item.measurement;
           leftDiv.appendChild(amount);
 
@@ -219,6 +219,7 @@ onAuthStateChanged(auth, async (user) => {
           const menuAmount = document.createElement("input");
           menuAmount.className = "menuInput";
           menuAmount.type = "number";
+          menuAmount.placeholder = "Amount"
           rightDiv.appendChild(menuAmount); 
 
           const addMenu = document.createElement("button");
@@ -260,7 +261,7 @@ onAuthStateChanged(auth, async (user) => {
                 mainDiv.className = "iNVtemDiv";
                 itemList.appendChild(mainDiv);
 
-                const title = document.createElement("p");
+                const title = document.createElement("h4");
                 title.textContent = item.title + " (" + item.amount + ")";
                 mainDiv.appendChild(title);
 
@@ -326,18 +327,18 @@ onAuthStateChanged(auth, async (user) => {
         ordersInv.sort((a, b) => a.title.localeCompare(b.title));
         for (const item of ordersInv) {
           const mainDiv = document.createElement("div");
-          mainDiv.className = "invDiv"
+          mainDiv.className = "menInvDiv"
           list.appendChild(mainDiv);
 
-          const title = document.createElement("p");
+          const title = document.createElement("h4");
           title.textContent = item.title;
           mainDiv.appendChild(title);
 
-          const type = document.createElement("p");
+          const type = document.createElement("h4");
           type.textContent = item.type;
           mainDiv.appendChild(type);
 
-          const price = document.createElement("p");
+          const price = document.createElement("h4");
           price.textContent = "$" + item.price;
           mainDiv.appendChild(price);
 
