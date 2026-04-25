@@ -131,6 +131,9 @@ body{
     /* Global */
     .mainPages{
         padding-top: 220px;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
     }
 
     /* Sign In */
@@ -250,6 +253,7 @@ body{
 
     /* Footer */
     .footer{
+        flex:1;
         display: flex;
         justify-content: start;
         align-items: end;
@@ -744,6 +748,9 @@ body{
     /* Global */
     .mainPages{
         padding-top: 147px;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
     }
     
     /* Sign In */
@@ -862,6 +869,7 @@ body{
 
     /* Footer */
     .footer{
+        flex:1;
         display: flex;
         justify-content: start;
         align-items: end;
@@ -1352,6 +1360,9 @@ body{
     /* Global */
     .mainPages{
         padding-top: 103px;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
     }
 
     /* Sign In */
@@ -1471,6 +1482,7 @@ body{
 
     /* Footer */
     .footer{
+        flex:1;
         display: flex;
         justify-content: start;
         align-items: end;

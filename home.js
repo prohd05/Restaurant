@@ -30,20 +30,20 @@ import { updateDoc, deleteDoc, setDoc, collection, doc, addDoc, getDoc ,getDocs,
 
 // Place Order to Cart
     async function addToCart(user, item) {
-    const ref = doc(db, "carts", user.uid);
-    const snap = await getDoc(ref);
-    let items = [];
-    if (snap.exists()) {
-        items = snap.data().items || [];
-    }
-        items.push({
-            itemID: item.id,
-            title: item.title,
-            price: parseFloat(item.price),
-            qty: 1
-        });
-    await setDoc(ref, { items }, { merge: true });
-}
+      const ref = doc(db, "carts", user.uid);
+      const snap = await getDoc(ref);
+      let items = [];
+      if (snap.exists()) {
+          items = snap.data().items || [];
+      }
+          items.push({
+              itemID: item.id,
+              title: item.title,
+              price: parseFloat(item.price),
+              qty: 1
+          });
+      await setDoc(ref, { items }, { merge: true });
+  }
 
 // Remove Order from Cart
 async function removeFromCart(user, index) {
@@ -357,6 +357,44 @@ async function getCart(user) {
           addItem.textContent = "Add Item";
           addItem.className = "addItem"
           mainDiv.appendChild(addItem);
+
+          async function checkStock() {
+            try {
+                let outOfStock = false;
+
+                for (const ing of item.ingredients || []) {
+                    const invRef = doc(db, "inventory", ing.id);
+                    const invSnap = await getDoc(invRef);
+
+                    if (!invSnap.exists()) {
+                        outOfStock = true;
+                        break;
+                    }
+
+                    const invData = invSnap.data();
+                    const stock = invData.amount || 0;
+
+                    // compare REQUIRED vs AVAILABLE
+                    if (stock < ing.amount) {
+                        outOfStock = true;
+                        break;
+                    }
+                }
+
+                if (outOfStock) {
+                    addItem.textContent = "Out of Stock";
+                    addItem.disabled = true;
+                } else {
+                    addItem.textContent = "Add Item";
+                    addItem.disabled = false;
+                }
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        checkStock();
           
           const price = document.createElement("h4");
           price.textContent = "$" + item.price;

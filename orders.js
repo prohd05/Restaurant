@@ -81,18 +81,56 @@ onAuthStateChanged(auth, async (user) => {
                 orderButton.textContent = "Complete Order";
                 mainDiv.appendChild(orderButton);
                 
-                async function confirmButton(){
-                        if (confirm("Confirm to complete order")) {
+                async function confirmButton() {
+                    if (confirm("Confirm to complete order")) {
                         try {
-                            await updateDoc(doc(db, "orders", order.id), {
+                            const orderRef = doc(db, "orders", order.id);
+                            const orderSnap = await getDoc(orderRef);
+
+                            if (!orderSnap.exists()) return;
+
+                            const orderData = orderSnap.data();
+                            const orderedItems = orderData.items || [];
+                            const invSnapshot = await getDocs(collection(db, "inventory"));
+
+                            for (const invDoc of invSnapshot.docs) {
+                                const invData = invDoc.data();
+                                const menuItems = invData.menuItems || [];
+
+                                let totalDeduction = 0;
+
+                                for (const orderedItem of orderedItems) {
+                                    const found = menuItems.find(m => m.id === orderedItem.itemID);
+
+                                    if (found) {
+                                        totalDeduction += found.amount;
+                                    }
+                                }
+
+                                if (totalDeduction > 0) {
+                                    let newAmount = invData.amount - totalDeduction;
+
+                                    if (newAmount < 0) {
+                                        newAmount = 0;
+                                    }
+
+                                    await updateDoc(doc(db, "inventory", invDoc.id), {
+                                        amount: newAmount
+                                    });
+                                }
+                            }
+
+                            await updateDoc(orderRef, {
                                 status: "completed"
                             });
+
                             window.location.reload();
-                            } catch (error) {
-                                console.error("Error updating order:", error);
-                            }  
-                        }  
-                    };
+
+                        } catch (error) {
+                            console.error("Error updating order:", error);
+                        }
+                    }
+                }
 
                     orderButton.addEventListener("click", async () => {
                     confirmButton();
