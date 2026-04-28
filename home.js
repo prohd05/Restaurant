@@ -330,7 +330,7 @@ async function getCart(user) {
       menuSnapshot.forEach((allItems) => {
           orderMenu.push({ id: allItems.id, ...allItems.data() });
       });
-      orderMenu.sort((a, b) => a.createdAt - b.createdAt);
+      orderMenu.sort((a, b) => a.title.localeCompare(b.title));
       for (const item of orderMenu) {
         if (item.type === type) {
 

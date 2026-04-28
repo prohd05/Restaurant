@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../styles.css" rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="../assets/logo.png">
+        <title> Orders Accounting </title>
+    </head>
+    <body>
+        <nav class="navbar">
+            <span class="navSideArea"> <button class="navSidebar"> <img class="menuIcon" src="../assets/menu.png" alt="Sidebar"> </button> <br> </span>
+            <button class="navlogoClick"> <img src="../assets/logo.png" class="navlogo"> </button> 
+            <!-- <img class="navPFP"> -->
+            <!-- <p class="navRole"> Role: N/A</p> -->
+            <div class="signoutArea">
+                <p class="navName"> Name: N/A </p>
+                <button class="navSignout"> <img class="signoutIcon" src="../assets/signout.png" alt="Signout"> </button>
+            </div>
+        </nav>
+        <div class="sidebar">
+            <a href="../home.html" class="sideHome"> Home </a>
+            <a href="../orders.html" class="sideOrders"> Orders </a>
+            <a href="../inventory.html" class="sideInventory"> Inventory </a>
+            <a href="../timeclock.html" class="sideShift"> Shift Managment </a>
+            <a href="../management.html" class="sideManagement"> Managment </a>
+            <a href="main.html" class="sideAccounting"> Accounting </a>
+            
+            <br>
+            <a href="inventory.html" class="publicLinks"> Accounting Inventory </a>
+            <a href="shifts.html" class="publicLinks"> Accounting Shifts </a>
+            <a href="order.html" class="publicLinks"> Accounting Orders </a>
+            </div>
+            
+            <div id="acc" class="mainPages">
+                <h5> Orders </h5>
+                <div id="accOrders" class="accList">
+
+                </div>
+            </div>
+        <script type="module" src="../scriptcomp/navbar.js" defer></script>
+        <script type="module" src="../scriptcomp/sidebar.js" defer></script>
+        <script type="module" src="accounting.js" defer></script>
+    </body>
+</html>

@@ -194,10 +194,18 @@ onAuthStateChanged(auth, async (user) => {
             addAmount.addEventListener("click", async () => {
                 let change = parseInt(amountV.value) || 1;
                 let newAmount = parseInt(item.amount) + change;
-
                 try {
                     await updateDoc(amountRef, {
                         amount: newAmount
+                    });
+                    await addDoc(collection(db, "accounting"), {
+                        user: us.displayName,
+                        type: "inventory",
+                        item: item.name,
+                        amount: change,
+                        pricePer: item.pricePer,
+                        totalPrice: change * item.pricePer,
+                        timestamp: serverTimestamp()
                     });
                 } catch (error) {
                     console.error(error);
@@ -223,6 +231,19 @@ onAuthStateChanged(auth, async (user) => {
                     } catch (error) {
                     console.error(error);
                 }
+            });
+
+            const cost = document.createElement("h4");
+            leftDiv.appendChild(cost);
+
+            function updateCost() {
+                let change = parseFloat(amountV.value) || 1;
+                cost.textContent = "Cost: $" + (change * item.pricePer).toFixed(2);
+            }
+
+            updateCost();
+            amountV.addEventListener("input", async () => {
+                updateCost();
             });
 
             const rightDiv = document.createElement("div");
@@ -421,7 +442,6 @@ onAuthStateChanged(auth, async (user) => {
             if (confirm("Delete " + item.title + "?")) {
                 try {
                     await deleteDoc(doc(db, "menu", item.id));
-                    viewMenu(user);
                 } catch (error) {
                     console.error("Error deleting item:", error);
                 };

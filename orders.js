@@ -124,6 +124,14 @@ onAuthStateChanged(auth, async (user) => {
                                 status: "completed"
                             });
 
+                            await addDoc(collection(db, "accounting"), {
+                                user: orderData.user,
+                                type: "orders",
+                                item: String(orderData.items.map(i => i.title).join(", ")),
+                                totalPrice: orderData.subTotal,
+                                timestamp: serverTimestamp()
+                            });
+
                             window.location.reload();
 
                         } catch (error) {

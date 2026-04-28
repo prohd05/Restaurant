@@ -65,6 +65,11 @@ onAuthStateChanged(auth, async (user) => {
 
     homeButton.forEach(btn => {
         btn.addEventListener("click", async () => {
-                window.location.href = "home.html";
+          if( window.location.pathname.includes("accounting") ){
+            window.location.href = "../home.html";
+          }
+          else{
+            window.location.href = "home.html";
+          }
         });
     });
