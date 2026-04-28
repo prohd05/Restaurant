@@ -40,14 +40,12 @@ onAuthStateChanged(auth, async (user) => {
         console.error("Error fetching user:", error); 
       }
     } else {
-      setTimeout(() => {
         window.location.href = "signin.html";
-      }, 1000);
     }
 
     us = user;
     viewInventory();
-    //await viewMenu(us);
+    viewMenu(us);
 
     const addIngForm = document.getElementById("addIng");
     addIngForm.addEventListener("submit", async (event) => {
@@ -169,14 +167,14 @@ onAuthStateChanged(auth, async (user) => {
 
             const amountRef = doc(db, "inventory", item.id);
             const amount = document.createElement("h4");
-            amount.textContent = "Amount: " + item.amount + " " + item.measurement;
+            amount.textContent = "Amount: " + Number(item.amount).toString() + " " + item.measurement;
             leftDiv.appendChild(amount);
 
             onSnapshot(amountRef, (uItem) => {
               if (uItem.exists()) {
                   const data = uItem.data();
                   item.amount = data.amount;
-                  amount.textContent = "Amount: " + data.amount + " " + data.measurement;
+                  amount.textContent = "Amount: " + Number(data.amount).toString() + " " + data.measurement;
                   low.style.display = data.amount > data.lowAmount ? "none" : "block";
               }
               lowUpdate();
@@ -217,8 +215,8 @@ onAuthStateChanged(auth, async (user) => {
             leftDiv.appendChild(minusAmount);
 
             minusAmount.addEventListener("click", async () => {
-                let change = parseInt(amountV.value) || 1;
-                let newAmount = parseInt(item.amount) - change;
+                let change = parseFloat(amountV.value).toFixed(2) || 1;
+                let newAmount = parseFloat(item.amount).toFixed(2) - parseFloat(change).toFixed(2);
 
                 if (newAmount < 0) {
                     newAmount = 0;
@@ -323,7 +321,6 @@ onAuthStateChanged(auth, async (user) => {
                       await updateDoc(menuRef, {
                           ingredients: ingredients
                       });
-                      viewMenu(us);
                       inventoryMenu(id);
                   });
               });
@@ -375,7 +372,7 @@ onAuthStateChanged(auth, async (user) => {
             });
             rightDiv.appendChild(itemList);
             inventoryMenu(item.id);
-            viewMenu(us);
+            //viewMenu(us);
       }
         }
     };

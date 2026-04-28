@@ -18,13 +18,43 @@ onAuthStateChanged(auth, async (user) => {
         }
     }
     else{
-            window.location.href = "signin.html";
+            window.location.href = "../signin.html";
     }
 
     viewAcc("orders", "accOrders");
     viewAcc("shifts", "accShifts");
     viewAcc("inventory", "accInv");
+    checkAcc();
 });
+
+async function checkAcc() {
+    let expenses = 0;
+    let income = 0;
+    let balance = 0;
+
+    const accRef = collection(db, "accounting");
+    const accSnapshot = await getDocs(accRef);
+    accSnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.type === "orders") {
+            income += parseFloat(data.totalPrice);
+        } else if (data.type === "shifts" || data.type === "inventory") {
+            expenses += parseFloat(data.totalPrice);
+        }
+    });
+    balance = income - expenses;
+
+    document.getElementById("income").textContent = "Income: $" + income.toFixed(2);
+    document.getElementById("expenses").textContent = "Expenses: $" + expenses.toFixed(2);
+    document.getElementById("balance").textContent = "$" + balance.toFixed(2);
+
+    if(balance > 0){
+        document.getElementById("balance").style.color = "green";
+    }
+    else{
+        document.getElementById("balance").style.color = "red";
+    }
+}
 
 async function viewAcc(src, div){
     const list = document.getElementById(div);
@@ -53,11 +83,13 @@ async function viewAcc(src, div){
             }
 
             const Item = document.createElement("p");
-            Item.textContent = "Item: " + item.item;
+            if(src === "inventory"){ Item.textContent = "Item: " + item.item;}
+            else if(src === "shifts"){ Item.textContent = "Hours: " + item.item;}
+            else if(src === "orders"){ Item.textContent = "Order: " + item.item;}
             mainDiv.appendChild(Item);
 
             const amount = document.createElement("p");
-            amount.textContent = "Amount: $" + item.totalPrice;
+            amount.textContent = "Amount: "+ exp + "$" + item.totalPrice;
             mainDiv.appendChild(amount);
         }
     }

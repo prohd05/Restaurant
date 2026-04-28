@@ -27,7 +27,7 @@ onAuthStateChanged(auth, async (user) => {
         }
     }
     else{
-            window.location.href = "signin.html";
+      window.location.href = "signin.html";
     }
     const roleSnap = await getDoc(doc(db, "roles", user.uid));
     currentRole = roleSnap.data();
@@ -104,6 +104,15 @@ function setupClockButton() {
       await updateDoc(shiftRef, {
         activeShift: null,
         history: [...(data.history || []), newShift]
+      });
+
+       await addDoc(collection(db, "accounting"), {
+          user: currentUser.displayName,
+          type: "shifts",
+          item: parseFloat(hours.toFixed(2)),
+          pricePer: wages[getRole()] || 0,
+          totalPrice: parseFloat(earnings.toFixed(2)),
+          timestamp: serverTimestamp()
       });
 
       btn.textContent = "Clock In";

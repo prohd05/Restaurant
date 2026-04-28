@@ -12,7 +12,7 @@
 }
 
 body{
-    background-color: #6EADFF;
+    background-color: #D2E9FF;
 }
 
 #navPublic{
@@ -21,6 +21,8 @@ body{
 
 #homeTitle{
     text-align: center;
+    color: #007eff;
+    -webkit-text-stroke: 1px black;
 }
 
 #userIDS h5, #userIDS input, #stfSrcBtt, #stfSort{
@@ -36,13 +38,13 @@ body{
 }
 
 ::-webkit-scrollbar-thumb{
-    background: #ffe13a;
+    background: #007eff;
     border: none;
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover{
-    background: #CCB42E;
+    background: #007eff;
     border: none;
     border-radius: 5px;
 }
@@ -105,13 +107,13 @@ body{
     }
 
     h2, .heading2{
-        font-family: "Tac One";
+        font-family: "Audiowide";
         font-size: 48px;
         font-weight: 100;
     }
 
     h4, .heading4, .orderul, .complete, #addIng input, #addMeal input, #addMeal select{
-        font-family: "Pixelify Sans";
+        font-family: "Audiowide";
         font-size: 28px;
         font-weight: bold;
     }
@@ -123,7 +125,7 @@ body{
     }
 
     p, .paragraph{
-        font-family: "Happy Monkey";
+        font-family: "Notable";
         font-size: 24px;
         font-weight: 100;
     }
@@ -175,12 +177,12 @@ body{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 220px;
+        height: 180px;
         width: 100%;
-        border-bottom: 2px solid #FFD16D;
+        border-bottom: 2px solid #007eff;
         position: fixed;
         top: 0%;
-        background-color: #6EADFF;
+        background-color: #D2E9FF;
     }
 
     .navSidebar, .navSignout, .navlogoClick{
@@ -189,7 +191,7 @@ body{
     }
 
     .navlogo{
-        height: 216px;
+        height: 180px;
     }
 
     .menuIcon{
@@ -208,7 +210,7 @@ body{
         display: flex;
         justify-content: end;
         text-align: center;
-        color:#ffe13a;
+        color:#007eff;
     }
 
     .navSideArea, .signoutArea{
@@ -217,7 +219,7 @@ body{
 
     /* Sidebar */
     .sidebar{
-        background-color: #FFD16D;
+        background-color: #007EFF;
         width: 474px;
         position: fixed;
         top: 220px;
@@ -236,11 +238,11 @@ body{
     }
 
     .sidebar a:link{
-        color:#6EADFF;
+        color:#002FA4;
     }
 
     .sidebar a:visited {
-        color:#6EADFF;
+        color:#002FA4;
     }
 
     .sidebar a:hover{
@@ -272,6 +274,7 @@ body{
         display: flex;
         justify-content: center;
         align-items: center;
+        color:#007EFF;
     }
 
     .menuPic{
@@ -288,10 +291,12 @@ body{
 
     .cartTitle{
         margin: 0px;
+        color:#007EFF;
     }
 
     .cartPrice{
         margin: 0px;
+        color:#007EFF;
     }
 
     .cartRemove{
@@ -305,11 +310,11 @@ body{
     }
 
     #typeBtt, #checkoutBtn{
-        background-color: #F65647;
+        background-color: #002FA4;
         border-radius: 32px;
         width: 292px;
         margin-left: 15px;
-        border: solid #1A5EEF 2px;
+        border: none;
     }
 
     #cartSummary{
@@ -340,7 +345,7 @@ body{
 
     .sumSep p, .sumSep h4{
         margin: 0px;
-        color:white;
+        color:#007EFF;
     }
 
     .sumL{
@@ -348,8 +353,8 @@ body{
     }
 
     .sectionArea{
-        background-color: #FFD16D;
-        border-radius: 10px;    
+        background-color: #007EFF;
+        border-radius: 40px;    
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         place-items: center;
@@ -382,7 +387,7 @@ body{
     .sectionArea h4{
         margin-top: 0px;
         margin-bottom: 0px;
-        color:#0046C9;
+        color:#D2E9FF;
         text-align: center;
     }
 
@@ -391,11 +396,12 @@ body{
         text-decoration: underline;
         margin-bottom: 0px;
         margin-left: 2%;
+        color:#007EFF;
     }
 
     .addItem{
         color:white;
-        background-color: #59A7FF;
+        background-color: #002FA4;
         text-align: center;
         border-radius: 7px;
         border: solid 2px #FF0606;
@@ -414,7 +420,7 @@ body{
     }
 
     .staffInfo{
-        background-color: #FFD16D;
+        background-color: #FFF7CA;
         border-radius: 10px;
         border:#575FF9 solid 1px;
         padding:10px;
@@ -423,7 +429,15 @@ body{
         overflow-x: auto;
     }
     
-    .setButton, .staffDD{
+    .staffDD{
+        background-color: #FFF7CA;
+        border-radius: 10px;
+        border:#575FF9 solid 1px;
+        padding:10px;
+        margin-left: 15px;
+    }
+
+    .setButton{
         background-color: #FFD16D;
         border-radius: 10px;
         border:#575FF9 solid 1px;
@@ -479,7 +493,7 @@ body{
         border-top-right-radius: 10px;
         border: solid black 1px;
         border-bottom: solid black 1px;
-        color:#6EADFF;
+        color:#D2E9FF;
         height: 75px;
         overflow-y: hidden;
         overflow-x: auto;
@@ -495,8 +509,8 @@ body{
     }
 
     .bottomDiv{
-        background-color: #FFD16D;
-        color:#6EADFF;
+        background-color: #007EFF;
+        color:#D2E9FF;
         height: 425px;
         border: solid black 1px;
         border-top: none;
@@ -539,7 +553,7 @@ body{
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
         border: solid black 1px;
-        background-color: #50C878;
+        background-color: #FFD16D;
     }
 
     /* Inventory */
@@ -673,8 +687,11 @@ body{
     
     .iNVtemDiv button{
         color:red;
+        font-weight: bold;
         margin: 0px;
         margin-top: 10px;
+        border: 1px solid red;
+        border-radius: 50%;
     }
 
     #viewMenu{
@@ -722,13 +739,13 @@ body{
     }
 
     h2, .heading2{
-        font-family: "Tac One";
+        font-family: "Audiowide";
         font-size: 36px;
         font-weight: 100;
     }
 
     h4, .heading4, .orderul, .complete, #addIng input, #addMeal input, #addMeal select{
-        font-family: "Pixelify Sans";
+        font-family: "Audiowide";
         font-size: 24px;
         font-weight: bold;
     }
@@ -792,12 +809,12 @@ body{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 147px;
+        height: 140px;
         width: 100%;
-        border-bottom: 2px solid #FFD16D;
+        border-bottom: 2px solid #007eff;
         position: fixed;
         top: 0%;
-        background-color: #6EADFF;
+        background-color: #D2E9FF;
     }
     .navSidebar, .navSignout, .navlogoClick{
         background-color: transparent;
@@ -805,7 +822,7 @@ body{
     }
 
     .navlogo{
-        height: 144px;
+        height: 140px;
     }
 
     .menuIcon{
@@ -824,7 +841,7 @@ body{
         display: flex;
         justify-content: end;
         text-align: center;
-        color:#ffe13a;
+        color:#007eff;
     }   
 
     .navSideArea, .signoutArea{
@@ -833,7 +850,7 @@ body{
 
     /* Sidebar */
     .sidebar{
-        background-color: #FFD16D;
+        background-color: #007EFF;
         width: 382px;
         position: fixed;
         top: 147px;
@@ -852,11 +869,11 @@ body{
     }
 
     .sidebar a:link{
-        color:#6EADFF;
+        color:#002FA4;
     }
 
     .sidebar a:visited {
-        color:#6EADFF;
+        color:#002FA4;
     }
 
     .sidebar a:hover{
@@ -888,6 +905,7 @@ body{
         display: flex;
         justify-content: center;
         align-items: center;
+        color:#007EFF;
     }
 
     .menuPic{
@@ -904,10 +922,12 @@ body{
 
     .cartTitle{
         margin: 0px;
+        color:#007EFF;
     }
 
     .cartPrice{
         margin: 0px;
+        color:#007EFF;
     }
 
     .cartRemove{
@@ -922,11 +942,11 @@ body{
 
 
     #typeBtt, #checkoutBtn{
-        background-color: #F65647;
+        background-color: #002FA4;
         border-radius: 32px;
         width: 292px;
         margin-left: 15px;
-        border: solid #1A5EEF 2px;
+        border: none;
     }
 
     #cartSummary{
@@ -957,7 +977,7 @@ body{
 
     .sumSep p, .sumSep h4{
         margin: 0px;
-        color:white;
+        color:#007EFF;
     }
 
     .sumL{
@@ -965,8 +985,8 @@ body{
     }
     
     .sectionArea{
-        background-color: #FFD16D;
-        border-radius: 10px;    
+        background-color: #007EFF;
+        border-radius: 40px;    
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         place-items: center;
@@ -991,7 +1011,7 @@ body{
     .sectionArea h4{
         margin-top: 0px;
         margin-bottom: 0px;
-        color: #0046C9;
+        color: #D2E9FF;
         text-align: center;
     }
 
@@ -1000,11 +1020,12 @@ body{
         text-decoration: underline;
         margin-bottom: 0px;
         margin-left: 2%;
+        color:#007EFF;
     }
 
     .addItem{
         color:white;
-        background-color: #59A7FF;
+        background-color: #002FA4;
         text-align: center;
         border-radius: 7px;
         border: solid 2px #FF0606;
@@ -1023,7 +1044,7 @@ body{
     }
 
     .staffInfo{
-        background-color: #FFD16D;
+        background-color: #FFF7CA;
         border-radius: 10px;
         border:#575FF9 solid 1px;
         padding:10px;
@@ -1032,7 +1053,15 @@ body{
         overflow-x: auto;
     }
     
-    .setButton, .staffDD{
+    .staffDD{
+        background-color: #FFF7CA;
+        border-radius: 10px;
+        border:#575FF9 solid 1px;
+        padding:10px;
+        margin-left: 15px;
+    }
+
+    .setButton{
         background-color: #FFD16D;
         border-radius: 10px;
         border:#575FF9 solid 1px;
@@ -1088,7 +1117,7 @@ body{
         border-top-right-radius: 10px;
         border: solid black 1px;
         border-bottom: solid black 1px;
-        color:#6EADFF;
+        color:#D2E9FF;
         height: 75px;
         overflow-y: hidden;
         overflow-x: auto;
@@ -1104,8 +1133,8 @@ body{
     }
 
     .bottomDiv{
-        background-color: #FFD16D;
-        color:#6EADFF;
+        background-color: #007EFF;
+        color:#D2E9FF;
         height: 425px;
         border: solid black 1px;
         border-top: none;
@@ -1148,7 +1177,7 @@ body{
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
         border: solid black 1px;
-        background-color: #50C878;
+        background-color: #FFD16D;
     }
 
     /* Inventory */
@@ -1287,6 +1316,8 @@ body{
         color:red;
         margin: 0px;
         margin-top: 10px;
+        border: 1px solid red;
+        border-radius: 50%;
     }
 
     #viewMenu{
@@ -1334,13 +1365,13 @@ body{
     }
 
     h2, .heading2{
-        font-family: "Tac One";
+        font-family: "Audiowide";
         font-size: 28px;
         font-weight: 100;
     }
 
     h4, .heading4, .orderul, .complete, #addIng input, #addMeal input, #addMeal select{
-        font-family: "Pixelify Sans";
+        font-family: "Audiowide";
         font-size: 18px;
         font-weight: bold;
     }
@@ -1404,12 +1435,12 @@ body{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 103px;
+        height: 95px;
         width: 100%;
-        border-bottom: 2px solid #FFD16D;
+        border-bottom: 2px solid #007eff;
         position: fixed;
         top: 0%;
-        background-color: #6EADFF;
+        background-color: #D2E9FF;
     }
 
     .navSidebar, .navSignout, .navlogoClick{
@@ -1437,7 +1468,7 @@ body{
         display: flex;
         flex-direction: column;
         text-align: center;
-        color:#ffe13a;
+        color:#007eff;
     }
 
     .navSideArea, .signoutArea{
@@ -1446,7 +1477,7 @@ body{
 
     /* Sidebar */
     .sidebar{
-        background-color: #FFD16D;
+        background-color: #007EFF;
         width: 100%;
         position: fixed;
         top: 103px;
@@ -1465,11 +1496,11 @@ body{
     }
 
     .sidebar a:link{
-        color:#6EADFF;
+        color:#002FA4;
     }
 
     .sidebar a:visited {
-        color:#6EADFF;
+        color:#002FA4;
     }
 
     .sidebar a:hover{
@@ -1501,6 +1532,7 @@ body{
         display: flex;
         justify-content: center;
         align-items: center;
+        color:#007EFF;
     }
 
     .menuPic{
@@ -1517,10 +1549,12 @@ body{
 
     .cartTitle{
         margin: 0px;
+        color:#007EFF;
     }
 
     .cartPrice{
         margin: 0px;
+        color:#007EFF;
     }
 
     .cartRemove{
@@ -1534,16 +1568,16 @@ body{
     }
 
     #typeBtt, #checkoutBtn{
-        background-color: #F65647;
+        background-color: #002FA4;
         border-radius: 32px;
         width: 185px;
         margin-left: 15px;
-        border: solid #1A5EEF 2px;
+        border: none;
     }
 
     #cartSummary{
         margin-left: 10%;
-        margin-right: 10%;
+        margin-right: 10%;  
     }
 
     .checkoutButton{
@@ -1569,7 +1603,7 @@ body{
 
     .sumSep p, .sumSep h4{
         margin: 0px;
-        color:white;
+        color:#007EFF;
     }
 
     .sumL{
@@ -1595,8 +1629,8 @@ body{
         justify-content: center;
         align-items: center;
         margin-bottom: 50px;
-        background-color: #FFD16D;
-        border-radius: 10px;
+        background-color: #007EFF;
+        border-radius: 40px;
         padding-top: 30px;
         padding-bottom: 30px;
         width: 90%;
@@ -1605,7 +1639,7 @@ body{
     .sectionArea h4{
         margin-top: 0px;
         margin-bottom: 0px;
-        color:#0046C9;
+        color:#D2E9FF;
         text-align: center;
     }
 
@@ -1614,11 +1648,12 @@ body{
         text-decoration: underline;
         margin-bottom: 0px;
         margin-left: 2%;
+        color:#007EFF;
     }
 
     .addItem{
         color:white;
-        background-color: #59A7FF;
+        background-color: #002FA4;
         text-align: center;
         border-radius: 7px;
         border: solid 2px #FF0606;
@@ -1642,7 +1677,7 @@ body{
     }
 
     .staffInfo{
-        background-color: #FFD16D;
+        background-color: #FFF7CA;
         border-radius: 10px;
         border:#575FF9 solid 1px;
         padding:10px;
@@ -1651,7 +1686,15 @@ body{
         overflow-x: auto;
     }
     
-    .setButton, .staffDD{
+    .staffDD{
+        background-color: #FFF7CA;
+        border-radius: 10px;
+        border:#575FF9 solid 1px;
+        padding:10px;
+        margin-left: 15px;
+    }
+
+    .setButton{
         background-color: #FFD16D;
         border-radius: 10px;
         border:#575FF9 solid 1px;
@@ -1706,7 +1749,7 @@ body{
         border-top-right-radius: 10px;
         border: solid black 1px;
         border-bottom: solid black 1px;
-        color:#6EADFF;
+        color:#D2E9FF;
         height: 75px;
         overflow-y: hidden;
         overflow-x: auto;
@@ -1722,8 +1765,8 @@ body{
     }
 
     .bottomDiv{
-        background-color: #FFD16D;
-        color:#6EADFF;
+        background-color: #007EFF;
+        color:#D2E9FF;
         height: 425px;
         border: solid black 1px;
         border-top: none;
@@ -1766,7 +1809,7 @@ body{
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
         border: solid black 1px;
-        background-color: #50C878;
+        background-color: #FFD16D;
     }
 
     /* Inventory */
@@ -1907,6 +1950,8 @@ body{
         color:red;
         margin: 0px;
         margin-top: 10px;
+        border: 1px solid red;
+        border-radius: 50%;
     }
 
     #viewMenu{

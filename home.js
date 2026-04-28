@@ -227,13 +227,11 @@ async function getCart(user) {
 
             const name = document.createElement("h2");
             name.textContent = item.title;
-            name.style.color = "white";
             name.className = "cartTitle"
 
             const price = document.createElement("h2");
             const itemTotal = item.price * item.qty;
             price.textContent = "$" + itemTotal;
-            price.style.color = "white";
             subtotal += itemTotal;
             price.className = "cartPrice"
 
