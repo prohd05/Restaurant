@@ -69,7 +69,7 @@ function setupClockButton() {
     const snap = await getDoc(shiftRef);
 
     let data = snap.exists() ? snap.data() : {};
-
+    
     // CLOCK IN
     if (!data.activeShift) {
       await setDoc(shiftRef, {
@@ -137,6 +137,7 @@ async function loadShifts() {
     .sort((a, b) => b.start - a.start)
     .forEach(shift => {
       const div = document.createElement("div");
+      div.className = "shiftDiv";
 
       const start = new Date(shift.start).toLocaleString();
       const end = new Date(shift.end).toLocaleString();
@@ -160,9 +161,6 @@ async function loadShifts() {
         const earnings = document.createElement("p");
         earnings.textContent = "Earnings: $" + shift.earnings;
         div.appendChild(earnings);
-
-        const hr = document.createElement("hr");
-        div.appendChild(hr);
 
       container.appendChild(div);
     });
