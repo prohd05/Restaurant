@@ -108,7 +108,7 @@ onAuthStateChanged(auth, async (user) => {
         const newDoc = await addDoc(collection(db, "menu"), {
             title: title,
             type: type,
-            picture: "assets/menu/" + img + ".png",
+            picture: img,
             price: price,
             ingredients: [],
             createdAt: serverTimestamp()
@@ -439,6 +439,7 @@ onAuthStateChanged(auth, async (user) => {
             if (confirm("Delete " + item.title + "?")) {
                 try {
                     await deleteDoc(doc(db, "menu", item.id));
+                    viewMenu(user);
                 } catch (error) {
                     console.error("Error deleting item:", error);
                 };

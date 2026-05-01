@@ -97,6 +97,17 @@ body{
     text-align: center;
 }
 
+#viewInvStyle{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+#viewInvStyle h4{
+    margin-right: 20px;
+}
+
+
 /* PC Media Query */
 @media screen and (min-width: 1200px){
     /* Media Query */
@@ -262,11 +273,12 @@ body{
         height: 212px;
         margin-top: 10%;
         background-image: url("assets/footer.png");
+        background-repeat: repeat-x;
     }
 
     .footerSonic{
-        height: 222px;
-        margin-bottom: 50px;
+        height: 112px;
+        margin-bottom: 90px;
     }
 
     /* Menu */
@@ -727,6 +739,26 @@ body{
         color:red;
         margin: 0px;
     }
+
+    /*  Accounting*/
+
+    .accList{
+        background-color: #FFD16D;
+        border-radius: 40px;    
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        place-items: center;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        margin-left: 1%;
+        margin-right: 1%;
+    }
+
+    .accDiv{
+        background-color: #6EADFF;
+        padding:2%;
+        border-radius: 10px;  
+    }
 }
 
 /* Tablet Media Query */
@@ -893,11 +925,12 @@ body{
         height: 212px;
         margin-top: 10%;
         background-image: url("assets/footer.png");
+        background-repeat: repeat-x;
     }
 
     .footerSonic{
-        height: 222px;
-        margin-bottom: 50px;
+        height: 92px;
+        margin-bottom: 90px;
     }
 
     /* Menu */
@@ -1517,14 +1550,16 @@ body{
         display: flex;
         justify-content: start;
         align-items: end;
-        height: 212px;
+        height: 170px;
         margin-top: 20%;
         background-image: url("assets/footer.png");
+        background-repeat: repeat-x;
+        background-position: center;
     }
 
     .footerSonic{
-        height: 222px;
-        margin-bottom: 30px;
+        height: 74px;
+        margin-bottom: 95px;
     }
 
     /* Menu */
@@ -1813,6 +1848,17 @@ body{
     }
 
     /* Inventory */
+    #viewInvStyle{
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+    }
+
+    #viewInvStyle input, #viewInvStyle button{
+        margin-bottom: 10px;
+    }
+
     #addIng, #addMeal{
         display: flex;
         flex-direction: column;

@@ -68,6 +68,7 @@ async function viewAcc(src, div){
     for (const item of ordersInv) {
         if(item.type === src){
             const mainDiv = document.createElement("div");
+            mainDiv.classList = "accDiv";
             list.appendChild(mainDiv);
 
             const user = document.createElement("p");
