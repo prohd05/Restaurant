@@ -21,6 +21,7 @@ onAuthStateChanged(auth, async (user) => {
             window.location.href = "../signin.html";
     }
 
+    viewAcc("all", "accAll");
     viewAcc("orders", "accOrders");
     viewAcc("shifts", "accShifts");
     viewAcc("inventory", "accInv");
@@ -66,7 +67,7 @@ async function viewAcc(src, div){
     });
     ordersInv.sort((a, b) => a.createdAt - b.createdAt);
     for (const item of ordersInv) {
-        if(item.type === src){
+        if(item.type === src || src === "all"){
             const mainDiv = document.createElement("div");
             mainDiv.classList = "accDiv";
             list.appendChild(mainDiv);
@@ -74,24 +75,40 @@ async function viewAcc(src, div){
             const user = document.createElement("p");
             user.textContent = "User: " + item.user;
             mainDiv.appendChild(user);
-
-            let exp = "";
-            if(src === "orders"){
-                exp = "+";
-            }
-            if(src === "shifts" || src === "inventory"){
-                exp = "-";
+            
+            if(src === "all"){
+                const type = document.createElement("p");
+                type.textContent = "Type: " + item.type;
+                mainDiv.appendChild(type);
             }
 
             const Item = document.createElement("p");
-            if(src === "inventory"){ Item.textContent = "Item: " + item.item;}
-            else if(src === "shifts"){ Item.textContent = "Hours: " + item.item;}
-            else if(src === "orders"){ Item.textContent = "Order: " + item.item;}
+            if(item.type === "inventory"){ Item.textContent = "Item: " + item.item;}
+            else if(item.type === "shifts"){ Item.textContent = "Hours: " + item.item;}
+            else if(item.type === "orders"){ Item.textContent = "Order: " + item.item;}
             mainDiv.appendChild(Item);
 
+            if(item.type === "inventory"){
+                const pricePer = document.createElement("p");
+                pricePer.textContent = "Price Per: $" + item.pricePer;
+                mainDiv.appendChild(pricePer);
+            }
+            if(item.type === "shifts"){
+                const pricePer = document.createElement("p");
+                pricePer.textContent = "Hourly Rate: $" + item.pricePer;
+                mainDiv.appendChild(pricePer);
+            }
+
             const amount = document.createElement("p");
-            amount.textContent = "Amount: "+ exp + "$" + item.totalPrice;
+            amount.textContent = "Amount: " + "$" + item.totalPrice;
+            if(item.type === "shifts"){
+                amount.textContent = "Total Pay: " + "$" + item.totalPrice;
+            }
             mainDiv.appendChild(amount);
+
+            const date = document.createElement("p");
+            date.textContent = "Date: " + item.timestamp.toDate().toLocaleString();
+            mainDiv.appendChild(date);
         }
     }
 }
